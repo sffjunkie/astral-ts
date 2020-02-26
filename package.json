@@ -4,7 +4,8 @@
     "description": "Calculations for the position of the sun and the moon",
     "main": "dist/index.js",
     "scripts": {
-        "build": "rimraf dist && tsc -d",
+        "clean": "rimraf dist",
+        "build": "rimraf dist && mkdir dist && cp src/astral/*.ts ./dist/",
         "test": "ts-mocha src/test/**/*.ts",
         "test-watch": "ts-mocha --watch --watch-files=src/test/**/*.ts",
         "make-docs": "typedoc --out doc src/astral/"
