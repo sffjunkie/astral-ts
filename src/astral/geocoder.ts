@@ -486,35 +486,37 @@ function group(region: string, db: LocationDatabase): LocationGroup | null {
 }
 
 function _lookup_in_group(
-    location: string,
+    name: string,
     group: LocationGroup
 ): LocationInfo | null {
-    let key = _sanitize_key(location);
+    let key = _sanitize_key(name);
     let [lookup_name, lookup_region] = key.split(",");
     lookup_region = lookup_region || "";
 
     lookup_name = lookup_name.replace(/^[\"\']|[\"\']$/gm, "");
     lookup_region = lookup_region.replace(/^[\"\']|[\"\']$/gm, "");
 
-    for (let [location_name, location_list] of Object.entries(group)) {
+    let location = null;
+    for (let location_name in group) {
         if (location_name === lookup_name) {
+            let location_list = group[location_name];
             if (lookup_region === "") {
-                return location_list[0];
+                location = location_list[0];
+            } else {
+                location_list.forEach(loc => {
+                    if (_sanitize_key(loc["region"]) == lookup_region) {
+                        location = loc;
+                    }
+                });
             }
-
-            location_list.forEach(location => {
-                if (_sanitize_key(location["region"]) == lookup_region) {
-                    return location;
-                }
-            });
         }
     }
 
-    return null;
+    return location;
 }
 
-/** Look up a location or group
- *
+/**
+ * Look up a location or group
  * @param name location or group name to look up
  * @param db The database to look in
  */
@@ -523,12 +525,16 @@ function lookup(
     db: LocationDatabase
 ): LocationInfo | LocationGroup | null {
     let key = _sanitize_key(name);
-    for (let [group_key, group] of Object.entries(db)) {
-        if (group_key == key) {
+    for (let group_name in db) {
+        var group = db[group_name];
+        if (group_name == key) {
             return group;
+        } else {
+            var location = _lookup_in_group(key, group);
+            if (location != null) {
+                return location;
+            }
         }
-
-        return _lookup_in_group(key, group);
     }
 
     return null;
