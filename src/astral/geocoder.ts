@@ -462,7 +462,7 @@ function _add_locations_from_list(
     }
 }
 
-function add_locations(locations: Array<any> | string, db: LocationDatabase) {
+function addLocations(locations: Array<any> | string, db: LocationDatabase) {
     if (locations instanceof Array) {
         _add_locations_from_list(locations, db);
     } else {
@@ -545,7 +545,7 @@ function lookup(
  *
  * @param The database to look in
  */
-function* all_locations(db: LocationDatabase) {
+function* allLocations(db: LocationDatabase) {
     for (let group of Object.values(db)) {
         for (let location_list of Object.values(group)) {
             for (let location_info of location_list) {
@@ -555,4 +555,4 @@ function* all_locations(db: LocationDatabase) {
     }
 }
 
-export { database, add_locations, group, lookup, all_locations };
+export { database, addLocations, group, lookup, allLocations };

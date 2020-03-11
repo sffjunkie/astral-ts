@@ -1,4 +1,4 @@
- // Copyright 2009-2019, Simon Kennedy, sffjunkie+code@gmail.com
+// Copyright 2009-2019, Simon Kennedy, sffjunkie+code@gmail.com
 
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@ import { DateTime } from "luxon";
 import * as geocoder from "./geocoder";
 import * as sun from "./sun";
 import * as moon from "./moon";
-// import * as location from "./location";
+import * as location from "./location";
 
 type Elevation = number | [number, number];
 
@@ -43,7 +43,7 @@ function today(timezone: string = "utc"): DateTime {
 }
 
 /**
- * Converts as string of the form `degrees°minutes'seconds"[N|S|E|W]`, or a float encoded as a string, to a float
+ * Converts as string of the form `degrees°minutes'seconds"[N|S|E|W]`, or a number encoded as a string, to a number
  *
  *   N and E return positive values
  *   S and W return negative values
@@ -51,7 +51,7 @@ function today(timezone: string = "utc"): DateTime {
  * @param dms string to convert
  * @param limit Limit the value between ± `limit` (if provided)
  */
-function dms_to_float(dms: string | number, limit?: number): number {
+function dmsToNumber(dms: string | number, limit?: number): number {
     if (dms === undefined) {
         console.log("2");
     }
@@ -61,21 +61,22 @@ function dms_to_float(dms: string | number, limit?: number): number {
     if (isNaN(res)) {
         let re = /(?<deg>\d{1,3})[°]?((?<min>\d{1,2})[′'])?((?<sec>\d{1,2})[″\"])?(?<dir>[NSEW])?/i;
         let m = dms.toString().match(re);
-        let groups = m.groups;
-        if (groups) {
-            let deg = groups["deg"] || "0.0";
-            let min_ = groups["min"] || "0.0";
-            let sec = groups["sec"] || "0.0";
-            let dir_ = groups["dir"] || "E";
+        if(m === null) {
+            throw {type: "ValueError", msg: `Unable to convert ${dms} to a float`};
+        }
 
-            res = parseFloat(deg);
-            if (min_) res += parseFloat(min_) / 60;
-            if (sec) res += parseFloat(sec) / 3600;
+        let deg = m.groups["deg"] || "0.0";
+        let min_ = m.groups["min"] || "0.0";
+        let sec = m.groups["sec"] || "0.0";
+        let dir_ = m.groups["dir"] || "E";
 
-            dir_ = dir_.toUpperCase();
-            if (dir_ === "S" || dir_ === "W") {
-                res = -res;
-            }
+        res = parseFloat(deg);
+        if (min_) res += parseFloat(min_) / 60;
+        if (sec) res += parseFloat(sec) / 3600;
+
+        dir_ = dir_.toUpperCase();
+        if (dir_ === "S" || dir_ === "W") {
+            res = -res;
         }
     }
 
@@ -136,17 +137,33 @@ class Observer {
                         in metres above/below the location.
      */
     constructor(
-        latitude: number | string,
-        longitude: number | string,
+        latitude?: number | string,
+        longitude?: number | string,
         elevation?: Elevation
     ) {
-        this.latitude = dms_to_float(latitude, 90.0);
-        this.longitude = dms_to_float(longitude, 180.0);
+        if (latitude) {
+            this.latitude = dmsToNumber(latitude, 90.0);
+        } else {
+            this.latitude = 51.4733;
+        }
+        if (longitude) {
+            this.longitude = dmsToNumber(longitude, 180.0);
+        } else {
+            this.longitude = -0.0008333;
+        }
         if (elevation) {
             this.elevation = elevation;
         } else {
             this.elevation = 0.0;
         }
+    }
+
+    public static fromObject(obj:Object): Observer {
+        let n = new Observer();
+        if ("latitude" in obj) n.latitude = dmsToNumber(obj["latitude"], 90.0);
+        if ("longitude" in obj) n.longitude = dmsToNumber(obj["longitude"], 90.0);
+        if ("elevation" in obj) n.elevation = obj["elevation"];
+        return n;
     }
 }
 
@@ -162,14 +179,47 @@ class LocationInfo {
      * @param longitude Longitude - Eastern longitudes should be positive
      */
     constructor(
-        public name: string,
-        public region: string,
-        public timezone: string,
-        latitude: number | string,
-        longitude: number | string
+        public name?: string,
+        public region?: string,
+        public timezone?: string,
+        latitude?: number | string,
+        longitude?: number | string
     ) {
-        this.latitude = dms_to_float(latitude, 90.0);
-        this.longitude = dms_to_float(longitude, 180.0);
+        if (name) {
+            this.name = name;
+        } else {
+            this.name = "Greenwich";
+        }
+        if (region) {
+            this.region = region;
+        } else {
+            this.region = "England";
+        }
+        if (timezone) {
+            this.timezone = timezone;
+        } else {
+            this.timezone = "Europe/London";
+        }
+        if (latitude) {
+            this.latitude = dmsToNumber(latitude, 90.0);
+        } else {
+            this.latitude = 51.4733;
+        }
+        if (longitude) {
+            this.longitude = dmsToNumber(longitude, 180.0);
+        } else {
+            this.longitude = -0.0008333;
+        }
+    }
+
+    public static fromObject(obj:Object): LocationInfo {
+        let n = new LocationInfo();
+        if ("name" in obj) n.name = obj["name"];
+        if ("region" in obj) n.region = obj["region"];
+        if ("timezone" in obj) n.timezone = obj["timezone"];
+        if ("latitude" in obj) n.latitude = dmsToNumber(obj["latitude"], 90.0);
+        if ("longitude" in obj) n.longitude = dmsToNumber(obj["longitude"], 180.0);
+        return n;
     }
 
     /** Get an observer instance for this location */
@@ -185,7 +235,7 @@ class LocationInfo {
 
 export {
     Elevation,
-    dms_to_float,
+    dmsToNumber,
     Observer,
     LocationInfo,
     SunDirection,
@@ -194,5 +244,6 @@ export {
     today,
     sun,
     moon,
-    geocoder
+    geocoder,
+    location
 };

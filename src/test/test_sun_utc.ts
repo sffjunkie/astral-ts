@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 const rewire = require("rewire");
-const chai = require("chai");
+const expect = require("chai").expect;
 const util = require("util");
 
 import { Depression, Observer } from "../astral";
@@ -16,7 +16,7 @@ const new_delhi = new Observer(
     77.22
 );
 
-describe("Test sun UTC functions", function() {
+describe("Sun UTC functions", function() {
     describe("sun", function() {
         var tests = [
             {
@@ -42,14 +42,14 @@ describe("Test sun UTC functions", function() {
         ];
         tests.forEach(function(test) {
             it(
-                "Calc the correct value for " + util.inspect(test.args),
+                "calc the correct value for " + util.inspect(test.args),
                 function() {
                     let dt = DateTime.fromObject(test.args);
                     let td = dt.setZone("utc");
                     let res = sun.sun(london, dt).dawn;
                     let expected = DateTime.fromObject(test.expected);
                     expected = expected.setZone("UTC");
-                    chai.assert.closeTo(res.toSeconds(), expected.toSeconds(), 60);
+                    expect(res.toSeconds()).to.be.closeTo(expected.toSeconds(), 60);
                 }
             );
         });
@@ -80,14 +80,14 @@ describe("Test sun UTC functions", function() {
         ];
         tests.forEach(function(test) {
             it(
-                "Calc the correct value for " + util.inspect(test.args),
+                "calc the correct value for " + util.inspect(test.args),
                 function() {
                     let dt = DateTime.fromObject(test.args);
                     let td = dt.setZone("utc");
                     let res = sun.dawn(london, dt, Depression.CIVIL);
                     let expected = DateTime.fromObject(test.expected);
                     expected = expected.setZone("UTC");
-                    chai.assert.closeTo(res.toSeconds(), expected.toSeconds(), 60);
+                    expect(res.toSeconds()).to.be.closeTo(expected.toSeconds(), 60);
                 }
             );
         });
@@ -118,14 +118,14 @@ describe("Test sun UTC functions", function() {
         ];
         tests.forEach(function(test) {
             it(
-                "Calc the correct value for " + util.inspect(test.args),
+                "calc the correct value for " + util.inspect(test.args),
                 function() {
                     let dt = DateTime.fromObject(test.args);
                     let td = dt.setZone("utc");
                     let res = sun.dawn(london, dt, Depression.NAUTICAL);
                     let expected = DateTime.fromObject(test.expected);
                     expected = expected.setZone("UTC");
-                    chai.assert.closeTo(res.toSeconds(), expected.toSeconds(), 60);
+                    expect(res.toSeconds()).to.be.closeTo(expected.toSeconds(), 60);
                 }
             );
         });
@@ -156,14 +156,14 @@ describe("Test sun UTC functions", function() {
         ];
         tests.forEach(function(test) {
             it(
-                "Calc the correct value for " + util.inspect(test.args),
+                "calc the correct value for " + util.inspect(test.args),
                 function() {
                     let dt = DateTime.fromObject(test.args);
                     let td = dt.setZone("utc");
                     let res = sun.dawn(london, dt, Depression.ASTRONOMICAL);
                     let expected = DateTime.fromObject(test.expected);
                     expected = expected.setZone("UTC");
-                    chai.assert.closeTo(res.toSeconds(), expected.toSeconds(), 60);
+                    expect(res.toSeconds()).to.be.closeTo(expected.toSeconds(), 60);
                 }
             );
         });

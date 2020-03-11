@@ -48,7 +48,7 @@ function jcentury_to_jday(juliancentury: number): number {
 /**
  * Calculate the geometric mean longitude of the sun */
 function geom_mean_long_sun(juliancentury: number): number {
-    // """Calculate the geometric mean longitude of the sun"""
+    // """calculate the geometric mean longitude of the sun"""
     let l0 =
         280.46646 + juliancentury * (36000.76983 + 0.0003032 * juliancentury);
     return ((l0 % 360.0) + 360.0) % 360.0;
@@ -57,7 +57,7 @@ function geom_mean_long_sun(juliancentury: number): number {
 /**
  * Calculate the geometric mean anomaly of the sun */
 function geom_mean_anomaly_sun(juliancentury: number): number {
-    // """Calculate the geometric mean anomaly of the sun"""
+    // """calculate the geometric mean anomaly of the sun"""
     return (
         357.52911 + juliancentury * (35999.05029 - 0.0001537 * juliancentury)
     );
@@ -68,7 +68,7 @@ function geom_mean_anomaly_sun(juliancentury: number): number {
  * @param juliancentury
  */
 function eccentric_location_earth_orbit(juliancentury: number): number {
-    // """Calculate the eccentricity of Earth's orbit"""
+    // """calculate the eccentricity of Earth's orbit"""
     return (
         0.016708634 -
         juliancentury * (0.000042037 + 0.0000001267 * juliancentury)
@@ -78,7 +78,7 @@ function eccentric_location_earth_orbit(juliancentury: number): number {
 /**
  * Calculate the equation of the center of the sun */
 function sun_eq_of_center(juliancentury: number): number {
-    // """Calculate the equation of the center of the sun"""
+    // """calculate the equation of the center of the sun"""
     let m = geom_mean_anomaly_sun(juliancentury);
 
     let mrad = _toRadians(m);
@@ -98,7 +98,7 @@ function sun_eq_of_center(juliancentury: number): number {
 /**
  * Calculate the sun's true longitude */
 function sun_true_long(juliancentury: number): number {
-    // """Calculate the sun's true longitude"""
+    // """calculate the sun's true longitude"""
     let l0 = geom_mean_long_sun(juliancentury);
     let c = sun_eq_of_center(juliancentury);
 
@@ -108,7 +108,7 @@ function sun_true_long(juliancentury: number): number {
 /**
  * Calculate the sun's true anomaly */
 function sun_true_anomoly(juliancentury: number): number {
-    // """Calculate the sun's true anomaly"""
+    // """calculate the sun's true anomaly"""
     let m = geom_mean_anomaly_sun(juliancentury);
     let c = sun_eq_of_center(juliancentury);
 
@@ -149,7 +149,7 @@ function obliquity_correction(juliancentury: number): number {
 /**
  * Calculate the sun's right ascension */
 function sun_rt_ascension(juliancentury: number): number {
-    // """Calculate the sun's right ascension"""
+    // """calculate the sun's right ascension"""
     let oc = obliquity_correction(juliancentury);
     let al = sun_apparent_long(juliancentury);
 
@@ -162,7 +162,7 @@ function sun_rt_ascension(juliancentury: number): number {
 /**
  * Calculate the sun's declination */
 function sun_declination(juliancentury: number): number {
-    // """Calculate the sun's declination"""
+    // """calculate the sun's declination"""
     let e = obliquity_correction(juliancentury);
     let lambd = sun_apparent_long(juliancentury);
 
@@ -251,7 +251,7 @@ function hour_angle(
  * @param elevation Elevation above the earth in metres
  */
 function adjust_to_horizon(elevation: number): number {
-    // """Calculate the extra degrees of depression that you can see round the earth
+    // """calculate the extra degrees of depression that you can see round the earth
     // due to the increase in elevation.
 
     // Args:
@@ -343,7 +343,7 @@ function refraction_at_zenith(zenith: number): number {
  * @param direction The direction that the sun is traversing
  * @returns The time when the sun transits the specificed zenith
  */
-function time_of_transit(
+function timeOfTransit(
     observer: Observer,
     date: DateTime,
     zenith: number,
@@ -424,7 +424,7 @@ function time_of_transit(
  * @param tzinfo    Timezone to return times in. Default is UTC.
  * @returns         Date and time at which the sun is at the specified elevation.
  */
-function time_at_elevation(
+function timeAtElevation(
     observer: Observer,
     elevation: number,
     date?: DateTime,
@@ -442,7 +442,7 @@ function time_at_elevation(
 
     let zenith = 90 - elevation;
     try {
-        let tot = time_of_transit(observer, date, zenith, direction);
+        let tot = timeOfTransit(observer, date, zenith, direction);
         if (tzinfo != null) {
             tot = tot.setZone(tzinfo);
         }
@@ -791,7 +791,7 @@ function dawn(
     // }
 
     try {
-        return time_of_transit(
+        return timeOfTransit(
             observer,
             date,
             90.0 + dep,
@@ -827,7 +827,7 @@ function sunrise(
     date = date || today(tzinfo);
 
     try {
-        return time_of_transit(
+        return timeOfTransit(
             observer,
             date,
             90.0 + SUN_APPARENT_RADIUS,
@@ -871,7 +871,7 @@ function sunset(
     }
 
     try {
-        return time_of_transit(
+        return timeOfTransit(
             observer,
             date,
             90.0 + SUN_APPARENT_RADIUS,
@@ -923,7 +923,7 @@ function dusk(
     // }
 
     try {
-        return time_of_transit(
+        return timeOfTransit(
             observer,
             date,
             90.0 + dep,
@@ -1022,7 +1022,7 @@ function twilight(
         date = today(tzinfo);
     }
 
-    let start = time_of_transit(observer, date, 90 + 6, direction).setZone(
+    let start = timeOfTransit(observer, date, 90 + 6, direction).setZone(
         tzinfo
     );
     let end;
@@ -1053,7 +1053,7 @@ function twilight(
  * @param tzinfo Timezone to return times in. Default is UTC.
  * @returns A tuple of the date and time at which the Golden Hour starts and ends.
  */
-function golden_hour(
+function goldenHour(
     observer: Observer,
     date?: DateTime,
     direction: SunDirection = SunDirection.RISING,
@@ -1067,10 +1067,10 @@ function golden_hour(
         date = today(tzinfo);
     }
 
-    let start = time_of_transit(observer, date, 90 + 4, direction).setZone(
+    let start = timeOfTransit(observer, date, 90 + 4, direction).setZone(
         tzinfo
     );
-    let end = time_of_transit(observer, date, 90 - 6, direction).setZone(
+    let end = timeOfTransit(observer, date, 90 - 6, direction).setZone(
         tzinfo
     );
 
@@ -1088,7 +1088,7 @@ function golden_hour(
  * @param direction
  * @param tzinfo
  */
-function blue_hour(
+function blueHour(
     observer: Observer,
     date?: DateTime,
     direction: SunDirection = SunDirection.RISING,
@@ -1119,10 +1119,10 @@ function blue_hour(
         date = today(tzinfo);
     }
 
-    let start = time_of_transit(observer, date, 90 + 6, direction).setZone(
+    let start = timeOfTransit(observer, date, 90 + 6, direction).setZone(
         tzinfo
     );
-    let end = time_of_transit(observer, date, 90 + 4, direction).setZone(
+    let end = timeOfTransit(observer, date, 90 + 4, direction).setZone(
         tzinfo
     );
 
@@ -1225,10 +1225,10 @@ export {
     sunset,
     sun,
     rahukaalam,
-    time_at_elevation,
-    time_of_transit,
-    golden_hour,
-    blue_hour,
+    timeAtElevation,
+    timeOfTransit,
+    goldenHour,
+    blueHour,
     twilight,
     daylight,
     night,

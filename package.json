@@ -1,14 +1,14 @@
 {
     "name": "astral",
     "version": "1.0.0",
-    "description": "Calculations for the position of the sun and the moon",
+    "description": "calculations for the position of the sun and the moon",
     "main": "dist/index.js",
     "scripts": {
         "clean": "rimraf dist",
         "build": "rimraf dist && mkdir dist && cp src/astral/*.ts ./dist/",
-        "test": "ts-mocha src/test/**/*.ts",
-        "test-watch": "ts-mocha --watch --watch-files=src/test/**/*.ts",
-        "make-docs": "typedoc --out doc src/astral/"
+        "test": "mocha --require ts-node/register ./src/test/**/*.ts",
+        "test-watch": "mocha --require ts-node/register --watch --watch-files ./src/**/*.ts",
+        "make-docs": "typedoc --media ./src/media --out doc ./src/astral/"
     },
     "keywords": [
         "sun",
@@ -31,26 +31,21 @@
         "@types/chai": "^4.2.9",
         "@types/luxon": "^1.21.0",
         "@types/mocha": "^7.0.1",
-        "@types/node": "^13.7.2",
+        "@types/node": "^13.7.6",
         "chai": "^4.2.0",
         "chai-datetime": "^1.5.0",
-        "dgeni": "^0.4.12",
-        "mocha": "^7.0.1",
+        "mocha": "^7.1.0",
         "mocha-typescript": "^1.1.17",
         "nyc": "^15.0.0",
         "rewire": "^4.0.1",
         "rimraf": "^3.0.2",
-        "ts-mocha": "^6.0.0",
         "ts-node": "^8.6.2",
         "typedoc": "^0.16.10",
-        "typescript": "^3.7.5"
+        "typescript": "^3.8.2"
     },
     "mocha": {
         "no-opts": true,
         "extension": "ts",
-        "watch-files": [
-            "./test/**/*.ts"
-        ],
         "color": true
     }
 }

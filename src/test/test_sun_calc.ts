@@ -1,7 +1,6 @@
 import { DateTime } from "luxon";
 const rewire = require("rewire");
-const assert = require("assert");
-const chai = require("chai");
+const expect = require("chai").expect;
 const util = require("util");
 const sun = rewire("../astral/sun");
 const index = require("../astral/index");
@@ -25,10 +24,10 @@ describe("Test sun backend functions", function() {
         ];
         tests.forEach(function(test) {
             it(
-                "Calc the correct value for " + util.inspect(test.args),
+                "calc the correct value for " + util.inspect(test.args),
                 function() {
                     let res = sun.julianday(DateTime.fromObject(test.args));
-                    assert.equal(res, test.expected);
+                    expect(res).to.equal(test.expected);
                 }
             );
         });
@@ -44,9 +43,9 @@ describe("Test sun backend functions", function() {
         ];
         let func_to_test = sun.__get__("jday_to_jcentury");
         tests.forEach(function(test) {
-            it("Calc the correct value for " + test.args, function() {
+            it("calc the correct value for " + test.args, function() {
                 let res = func_to_test(test.args);
-                chai.assert.closeTo(res, test.expected, 0.0001);
+                expect(res).to.be.closeTo(test.expected, 0.0001);
             });
         });
     });
@@ -61,9 +60,9 @@ describe("Test sun backend functions", function() {
         ];
         let func_to_test = sun.__get__("jcentury_to_jday");
         tests.forEach(function(test) {
-            it("Calc the correct value for " + test.args, function() {
+            it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
-                chai.assert.closeTo(res, test.expected, 0.0001);
+                expect(res).to.be.closeTo(test.expected, 0.0001);
             });
         });
     });
@@ -76,9 +75,9 @@ describe("Test sun backend functions", function() {
         ];
         let func_to_test = sun.__get__("geom_mean_long_sun");
         tests.forEach(function(test) {
-            it("Calc the correct value for " + test.args, function() {
+            it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
-                chai.assert.closeTo(res, test.expected, 0.0001);
+                expect(res).to.be.closeTo(test.expected, 0.0001);
             });
         });
     });
@@ -91,9 +90,9 @@ describe("Test sun backend functions", function() {
         ];
         let func_to_test = sun.__get__("geom_mean_anomaly_sun");
         tests.forEach(function(test) {
-            it("Calc the correct value for " + test.args, function() {
+            it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
-                chai.assert.closeTo(res, test.expected, 0.0001);
+                expect(res).to.be.closeTo(test.expected, 0.0001);
             });
         });
     });
@@ -106,9 +105,9 @@ describe("Test sun backend functions", function() {
         ];
         let func_to_test = sun.__get__("eccentric_location_earth_orbit");
         tests.forEach(function(test) {
-            it("Calc the correct value for " + test.args, function() {
+            it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
-                chai.assert.closeTo(res, test.expected, 0.0001);
+                expect(res).to.be.closeTo(test.expected, 0.0001);
             });
         });
     });
@@ -121,9 +120,9 @@ describe("Test sun backend functions", function() {
         ];
         let func_to_test = sun.__get__("sun_eq_of_center");
         tests.forEach(function(test) {
-            it("Calc the correct value for " + test.args, function() {
+            it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
-                chai.assert.closeTo(res, test.expected, 0.0001);
+                expect(res).to.be.closeTo(test.expected, 0.0001);
             });
         });
     });
@@ -136,9 +135,9 @@ describe("Test sun backend functions", function() {
         ];
         let func_to_test = sun.__get__("sun_true_long");
         tests.forEach(function(test) {
-            it("Calc the correct value for " + test.args, function() {
+            it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
-                chai.assert.closeTo(res, test.expected, 0.0001);
+                expect(res).to.be.closeTo(test.expected, 0.0001);
             });
         });
     });
@@ -151,9 +150,9 @@ describe("Test sun backend functions", function() {
         ];
         let func_to_test = sun.__get__("sun_true_anomoly");
         tests.forEach(function(test) {
-            it("Calc the correct value for " + test.args, function() {
+            it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
-                chai.assert.closeTo(res, test.expected, 0.0001);
+                expect(res).to.be.closeTo(test.expected, 0.0001);
             });
         });
     });
@@ -166,9 +165,9 @@ describe("Test sun backend functions", function() {
         ];
         let func_to_test = sun.__get__("sun_rad_vector");
         tests.forEach(function(test) {
-            it("Calc the correct value for " + test.args, function() {
+            it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
-                chai.assert.closeTo(res, test.expected, 0.0001);
+                expect(res).to.be.closeTo(test.expected, 0.0001);
             });
         });
     });
@@ -181,9 +180,9 @@ describe("Test sun backend functions", function() {
         ];
         let func_to_test = sun.__get__("sun_apparent_long");
         tests.forEach(function(test) {
-            it("Calc the correct value for " + test.args, function() {
+            it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
-                chai.assert.closeTo(res, test.expected, 0.0001);
+                expect(res).to.be.closeTo(test.expected, 0.0001);
             });
         });
     });
@@ -196,9 +195,9 @@ describe("Test sun backend functions", function() {
         ];
         let func_to_test = sun.__get__("mean_obliquity_of_ecliptic");
         tests.forEach(function(test) {
-            it("Calc the correct value for " + test.args, function() {
+            it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
-                chai.assert.closeTo(res, test.expected, 0.0001);
+                expect(res).to.be.closeTo(test.expected, 0.0001);
             });
         });
     });
@@ -211,9 +210,9 @@ describe("Test sun backend functions", function() {
         ];
         let func_to_test = sun.__get__("obliquity_correction");
         tests.forEach(function(test) {
-            it("Calc the correct value for " + test.args, function() {
+            it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
-                chai.assert.closeTo(res, test.expected, 0.0001);
+                expect(res).to.be.closeTo(test.expected, 0.0001);
             });
         });
     });
@@ -226,9 +225,9 @@ describe("Test sun backend functions", function() {
         ];
         let func_to_test = sun.__get__("sun_rt_ascension");
         tests.forEach(function(test) {
-            it("Calc the correct value for " + test.args, function() {
+            it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
-                chai.assert.closeTo(res, test.expected, 0.0001);
+                expect(res).to.be.closeTo(test.expected, 0.0001);
             });
         });
     });
@@ -241,9 +240,9 @@ describe("Test sun backend functions", function() {
         ];
         let func_to_test = sun.__get__("sun_declination");
         tests.forEach(function(test) {
-            it("Calc the correct value for " + test.args, function() {
+            it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
-                chai.assert.closeTo(res, test.expected, 0.0001);
+                expect(res).to.be.closeTo(test.expected, 0.0001);
             });
         });
     });
@@ -256,9 +255,9 @@ describe("Test sun backend functions", function() {
         ];
         let func_to_test = sun.__get__("eq_of_time");
         tests.forEach(function(test) {
-            it("Calc the correct value for " + test.args, function() {
+            it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
-                chai.assert.closeTo(res, test.expected, 0.0001);
+                expect(res).to.be.closeTo(test.expected, 0.0001);
             });
         });
     });
@@ -272,7 +271,7 @@ describe("Test sun backend functions", function() {
         let func_to_test = sun.__get__("hour_angle");
         tests.forEach(function(test) {
             it(
-                "Calc the correct value for " + util.inspect(test.args),
+                "calc the correct value for " + util.inspect(test.args),
                 function() {
                     let jd = sun.julianday(DateTime.fromObject(test.args));
                     let jc = sun.__get__("jday_to_jcentury")(jd);
@@ -283,14 +282,14 @@ describe("Test sun backend functions", function() {
                         90.8333,
                         index.SunDirection.RISING
                     );
-                    chai.assert.closeTo(res, test.expected, 0.001);
+                    expect(res).to.be.closeTo(test.expected, 0.001);
                 }
             );
         });
     });
 
     describe("azimuth", function() {
-        it("Should calc the correct azimuth for New Delhi", function() {
+        it("calc the correct azimuth for New Delhi", function() {
             let dt = DateTime.fromObject({
                 year: 2001,
                 month: 6,
@@ -300,13 +299,13 @@ describe("Test sun backend functions", function() {
                 second: 0,
                 zone: "Asia/Kolkata"
             });
-            chai.assert.closeTo(
-                sun.azimuth(new_delhi.observer, dt),
+            expect(sun.azimuth(new_delhi.observer, dt)).to.be.closeTo(
                 292.766381632981,
                 0.001
             );
         });
-        it("Should calc the correct azimuth for a location above 85° latitude", function() {
+
+        it("calc the correct azimuth for a location above 85° latitude", function() {
             let dt = DateTime.fromObject({
                 year: 2001,
                 month: 6,
@@ -316,8 +315,7 @@ describe("Test sun backend functions", function() {
                 second: 0,
                 zone: "UTC"
             });
-            chai.assert.closeTo(
-                sun.azimuth(new index.Observer(86, 77.2), dt),
+            expect(sun.azimuth(new index.Observer(86, 77.2), dt)).to.be.closeTo(
                 276.2148,
                 0.001
             );
@@ -325,7 +323,7 @@ describe("Test sun backend functions", function() {
     });
 
     describe("elevation", function() {
-        it("Should calc the correct angle for New Delhi", function() {
+        it("calc the correct angle for New Delhi", function() {
             let dt = DateTime.fromObject({
                 year: 2001,
                 month: 6,
@@ -335,13 +333,13 @@ describe("Test sun backend functions", function() {
                 second: 0,
                 zone: "Asia/Kolkata"
             });
-            chai.assert.closeTo(
-                sun.elevation(new_delhi.observer, dt),
+            expect(sun.elevation(new_delhi.observer, dt)).to.be.closeTo(
                 7.411009003716742,
                 0.001
             );
         });
-        it("Should calc the correct angle for a location above 85° latitude", function() {
+
+        it("calc the correct angle for a location above 85° latitude", function() {
             let dt = DateTime.fromObject({
                 year: 2001,
                 month: 6,
@@ -351,14 +349,13 @@ describe("Test sun backend functions", function() {
                 second: 0,
                 zone: "UTC"
             });
-            chai.assert.closeTo(
-                sun.elevation(new index.Observer(86, 77.2), dt),
+            expect(sun.elevation(new index.Observer(86, 77.2), dt)).to.be.closeTo(
                 23.102501151619506,
                 0.001
             );
         });
 
-        it("Should calc the correct angle for New Delhi when not adjusting for refraction", function() {
+        it("calc the correct angle for New Delhi when not adjusting for refraction", function() {
             let dt = DateTime.fromObject({
                 year: 2001,
                 month: 6,
@@ -368,14 +365,13 @@ describe("Test sun backend functions", function() {
                 second: 0,
                 zone: "Asia/Kolkata"
             });
-            chai.assert.closeTo(
-                sun.elevation(new_delhi.observer, dt, false),
+            expect(sun.elevation(new_delhi.observer, dt, false)).to.be.closeTo(
                 7.293490557358638,
                 0.001
             );
         });
 
-        it("Should match the time_at_elevation calc", function() {
+        it("match the timeAtElevation calc", function() {
             var elevations = [1, 2, 3, 5, 10, 20, 30, 40, 50];
             elevations.forEach(function(el) {
                 let dt = DateTime.fromObject({
@@ -386,9 +382,9 @@ describe("Test sun backend functions", function() {
                 });
 
                 let o = new index.Observer(51.50853, -0.12574);
-                let et = sun.time_at_elevation(o, el, dt);
+                let et = sun.timeAtElevation(o, el, dt);
 
-                chai.assert.closeTo(sun.elevation(o, et), el, 0.05);
+                expect(sun.elevation(o, et)).to.be.closeTo(el, 0.05);
             });
         });
     });
