@@ -1,6 +1,6 @@
 # Calculations for the position of the sun and moon
 
-[![Build Status](https://travis-ci.org/sffjunkie/astral.svg?branch=master)](https://travis-ci.org/sffjunkie/astral)
+[![Build Status](https://travis-ci.org/sffjunkie/astral-ts.svg?branch=develop)](https://travis-ci.org/sffjunkie/astral-ts)
 
 Astral is a typescript package for calculating the times of various aspects of
 the sun and phases of the moon.
