@@ -1,6 +1,10 @@
 {
     "compilerOptions": {
         "downlevelIteration": true,
-        "target": "ESNext"
-    }
+        "target": "ES6",
+        "outDir": "./dist/",
+        "declaration": true
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "src/test/**/*.ts"]
 }
