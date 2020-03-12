@@ -84,7 +84,7 @@ module
 
 ### Sun
 
-```
+```typescript
 > import { LocationInfo } from "astral";
 > let city = new LocationInfo("London", "England", "Europe/London", 51.5, -0.116);
 > console.log(
@@ -117,7 +117,7 @@ Dusk:    2009-04-22 19:46:06.362457+00:00
 
 ### Moon
 
-```
+```typescript
 > import { DateTime } from "luxon";
 > import { phase } from "astral/moon";
 > console.log(moon.phase(datetime.date(2018, 1, 1)))
@@ -148,7 +148,7 @@ See http://moongazer.x10.mx/website/astronomy/moon-phases/ for an example.
 
 ### Geocoder
 
-```
+```typescript
 > import { database, lookup } from "astral/geocoder";
 > lookup("London", database())
 LocationInfo(name='London', region='England', timezone='Europe/London',
@@ -167,14 +167,14 @@ If you only need a single location that is not in the database then you can
 construct a LocationInfo and fill in the values, either on
 initialization
 
-```
+```typescript
 import { LocationInfo } from "astral";
 let l = new LocationInfo('name', 'region', 'timezone/name', 0.1, 1.2);
 ```
 
 or set the attributes after initialization::
 
-```
+```typescript
 import { LocationInfo } from "astral";
 let l = new LocationInfo();
 l.name = 'name';
@@ -193,7 +193,7 @@ You can add to the list of available locations using the
 one line per location or by passing an Array containing strings, Arrays or tuples
 (lists and tuples are passed directly to the LocationInfo constructor).
 
-```
+```typescript
 > import { add_locations, database, lookup } from "astral/geocoder";
 > let db = database();
 > try {
@@ -215,8 +215,7 @@ LocationInfo(name='Somewhere', region='Secret Location', timezone='UTC',
 Timezone groups such as Europe can be accessed via the `group` function in
 the `geocoder` module
 
-```
-> from astral.geocoder import group
+```typescript
 > europe = group("europe")
 > sorted(europe.keys())
 ['aberdeen', 'amsterdam', 'andorra_la_vella', 'ankara', 'athens', ...]
