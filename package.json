@@ -23,6 +23,10 @@
     ],
     "author": "Simon Kennedy <sffjunkie+code@gmail.com>",
     "license": "Apache-2.0",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/sffjunkie/astral-ts.git"
+    },
     "dependencies": {
         "luxon": "^1.22.0"
     },
