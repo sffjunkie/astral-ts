@@ -306,9 +306,10 @@ LocationInfo(name=<span class="hljs-string">'Somewhere'</span>, region=<span cla
 					<h2>Effect of Refraction</h2>
 				</a>
 				<p>When viewing the sun the position you see it at is different from its actual
-					position due to the effect of atmospheric <code>refraction</code>_ which makes the sun
-					appear to be higher in the sky. The calculations in the package take this
-				refraction into account.</p>
+					position due to the effect of a
+					<a href="https://en.wikipedia.org/wiki/Atmospheric_refraction">tmospheric refraction</a>
+					which makes the sun appear to be higher in the sky. The calculations in the
+				package take this refraction into account.</p>
 				<p>The <code>sunrise</code> and <code>sunset</code> functions use the
 					refraction at an angle when the sun is half of its apparent diameter below the
 					horizon. This is between about 30 and 32 arcminutes and for the astral package a
@@ -318,18 +319,18 @@ LocationInfo(name=<span class="hljs-string">'Somewhere'</span>, region=<span cla
 				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
 					<h2>License</h2>
 				</a>
-				<p>This module is licensed under the terms of the <code>Apache</code>_ V2.0 license.</p>
+				<p>This module is licensed under the terms of the
+				<a href="https://www.apache.org/licenses/LICENSE-2.0">Apache</a> V2.0 license.</p>
 				<a href="#dependencies" id="dependencies" style="color: inherit; text-decoration: none;">
 					<h2>Dependencies</h2>
 				</a>
-				<p>Astral has one required external Python dependency on <code>pytz</code>.</p>
+				<p>Astral has one required external dependency on
+				<a href="https://moment.github.io/luxon/index.html">luxon</a>.</p>
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 					<h2>Installation</h2>
 				</a>
-				<p>To install Astral you should use the <code>pip</code>_ tool::</p>
-				<pre><code>pip3 <span class="hljs-keyword">install</span> astral</code></pre><p>!!! note Now that we are Python 3 only and pip provides a versioned executable
-					on Windows you should use the <code>pip3</code> command on all operating systems to ensure
-				you are targetting the right Python version.</p>
+				<p>To install Astral you should use the <code>npm</code> tool:</p>
+				<pre><code>npm <span class="hljs-keyword">install</span> astral</code></pre>
 				<a href="#cities" id="cities" style="color: inherit; text-decoration: none;">
 					<h2>Cities</h2>
 				</a>
@@ -405,25 +406,20 @@ LocationInfo(name=<span class="hljs-string">'Somewhere'</span>, region=<span cla
 				</a>
 				<p>The sun calculations in this module were adapted, for Python, from the
 				spreadsheets on the following page.</p>
-				<p>| <a href="https://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html">https://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html</a></p>
+				<p><a href="https://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html">https://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html</a></p>
 				<p>Refraction calculation is taken from</p>
-				<p>| Sun-Pointing Programs and Their Accuracy
-					| John C. Zimmerman Of Sandia National Laboratones
-				| <a href="https://www.osti.gov/servlets/purl/6377969">https://www.osti.gov/servlets/purl/6377969</a></p>
+				<p>Sun-Pointing Programs and Their Accuracy<br>John C. Zimmerman Of Sandia National Laboratones<br><a href="https://www.osti.gov/servlets/purl/6377969">https://www.osti.gov/servlets/purl/6377969</a></p>
 				<p>Which cites the following as the original source</p>
-				<p>| In Solar Energy Vol 20 No.5-C
-				| Robert Walraven Of The University Of California, Davis</p>
+				<p>In Solar Energy Vol 20 No.5-C<br>Robert Walraven Of The University Of California, Davis</p>
 				<p>The moon phase calculation is based on some javascript code from Sky and
 				Telescope magazine</p>
-				<p>| Moon-phase calculation
-					| Roger W. Sinnott, Sky &amp; Telescope, June 16, 2006.
-				| <a href="http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html">http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html</a></p>
-				<p>Also to <code>Sphinx</code>_ for making doc generation an easy thing (not that the writing
-				of the docs is any easier.)</p>
+				<p>Moon-phase calculation<br>Roger W. Sinnott, Sky &amp; Telescope, June 16, 2006.<br><a href="http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html">http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html</a></p>
+				<!-- Also to `Sphinx`\_ for making doc generation an easy thing (not that the writing
+of the docs is any easier.) -->
 				<a href="#contact" id="contact" style="color: inherit; text-decoration: none;">
 					<h2>Contact</h2>
 				</a>
-				<p>Simon Kennedy <a href="mailto:&#x73;&#102;&#102;&#106;&#117;&#x6e;&#x6b;&#x69;&#101;&#x2b;&#99;&#x6f;&#100;&#x65;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x73;&#102;&#102;&#106;&#117;&#x6e;&#x6b;&#x69;&#101;&#x2b;&#99;&#x6f;&#100;&#x65;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></p>
+				<p>Simon Kennedy <a href="mailto:&#x73;&#x66;&#x66;&#106;&#x75;&#110;&#107;&#105;&#x65;&#x2b;&#x63;&#111;&#100;&#x65;&#x40;&#103;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;">&#x73;&#x66;&#x66;&#106;&#x75;&#110;&#107;&#105;&#x65;&#x2b;&#x63;&#111;&#100;&#x65;&#x40;&#103;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;</a></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

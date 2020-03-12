@@ -245,8 +245,8 @@ It may either be obscured by the horizon or some other geographical feature
    then the adjustment angle is based on how far you are above or below the
    feature and your distance to it.
 
-For the first case i.e. obscured by the horizon you need to pass a single float
-to the Observer as its elevation. For the second case pass a tuple of 2 floats.
+For the first case i.e. obscured by the horizon you need to pass a single number
+to the Observer as its elevation. For the second case pass a tuple of 2 numbers.
 The first being the vertical distance to the top of the feature and the second
 the horizontal distance to the feature.
 
@@ -272,9 +272,10 @@ the solar elevation for changes in observer elevation.
 ## Effect of Refraction
 
 When viewing the sun the position you see it at is different from its actual
-position due to the effect of atmospheric `refraction`\_ which makes the sun
-appear to be higher in the sky. The calculations in the package take this
-refraction into account.
+position due to the effect of
+[atmospheric refraction](https://en.wikipedia.org/wiki/Atmospheric_refraction)
+which makes the sun appear to be higher in the sky. The calculations in the
+package take this refraction into account.
 
 The `sunrise` and `sunset` functions use the
 refraction at an angle when the sun is half of its apparent diameter below the
@@ -286,21 +287,21 @@ pressure which can affect the angle of refraction.
 
 ## License
 
-This module is licensed under the terms of the `Apache`\_ V2.0 license.
+This module is licensed under the terms of the
+[Apache](https://www.apache.org/licenses/LICENSE-2.0) V2.0 license.
 
 ## Dependencies
 
-Astral has one required external Python dependency on `pytz`.
+Astral has one required external dependency on
+[luxon](https://moment.github.io/luxon/index.html).
 
 ## Installation
 
-To install Astral you should use the `pip`\_ tool::
+To install Astral you should use the `npm` tool:
 
-    pip3 install astral
-
-!!! note Now that we are Python 3 only and pip provides a versioned executable
-on Windows you should use the `pip3` command on all operating systems to ensure
-you are targetting the right Python version.
+```
+npm install astral
+```
 
 ## Cities
 
@@ -378,28 +379,28 @@ Wichita, Wilmington
 The sun calculations in this module were adapted, for Python, from the
 spreadsheets on the following page.
 
-| https://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html
+https://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html
 
 Refraction calculation is taken from
 
-| Sun-Pointing Programs and Their Accuracy
-| John C. Zimmerman Of Sandia National Laboratones
-| https://www.osti.gov/servlets/purl/6377969
+Sun-Pointing Programs and Their Accuracy\
+John C. Zimmerman Of Sandia National Laboratones\
+https://www.osti.gov/servlets/purl/6377969
 
 Which cites the following as the original source
 
-| In Solar Energy Vol 20 No.5-C
-| Robert Walraven Of The University Of California, Davis
+In Solar Energy Vol 20 No.5-C\
+Robert Walraven Of The University Of California, Davis
 
 The moon phase calculation is based on some javascript code from Sky and
 Telescope magazine
 
-| Moon-phase calculation
-| Roger W. Sinnott, Sky & Telescope, June 16, 2006.
-| http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html
+Moon-phase calculation\
+Roger W. Sinnott, Sky & Telescope, June 16, 2006.\
+http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html
 
-Also to `Sphinx`\_ for making doc generation an easy thing (not that the writing
-of the docs is any easier.)
+<!-- Also to `Sphinx`\_ for making doc generation an easy thing (not that the writing
+of the docs is any easier.) -->
 
 ## Contact
 
