@@ -1,0 +1,521 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>astral</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">astral</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1>astral</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#calculations-for-the-position-of-the-sun-and-moon" id="calculations-for-the-position-of-the-sun-and-moon" style="color: inherit; text-decoration: none;">
+					<h1>Calculations for the position of the sun and moon</h1>
+				</a>
+				<p><a href="https://travis-ci.org/sffjunkie/astral-ts"><img src="https://travis-ci.org/sffjunkie/astral-ts.svg?branch=develop" alt="Build Status"></a></p>
+				<p>Astral is a typescript package for calculating the times of various aspects of
+				the sun and phases of the moon.</p>
+				<p>It can calculate the following</p>
+				<dl>
+					<dt>Dawn</dt>
+					<dd>The time in the morning when the sun is a specific number of degrees
+					below the horizon.</dd>
+					<dt>Sunrise</dt>
+					<dd>The time in the morning when the top of the sun breaks the horizon
+					(asuming a location with no obscuring features.)</dd>
+					<dt>Noon</dt>
+					<dd>The time when the sun is at its highest point directly above the
+					observer.</dd>
+					<dt>Midnight</dt>
+					<dd>The time when the sun is at its lowest point.</dd>
+					<dt>Sunset</dt>
+					<dd>The time in the evening when the sun is about to disappear below the
+					horizon (asuming a location with no obscuring features.)</dd>
+					<dt>Dusk</dt>
+					<dd>The time in the evening when the sun is a specific number of degrees
+					below the horizon.</dd>
+					<dt>Daylight</dt>
+					<dd>The time when the sun is up i.e. between sunrise and sunset</dd>
+					<dt>Night</dt>
+					<dd>The time between astronomical dusk of one day and astronomical dawn of
+					the next</dd>
+					<dt>Twilight</dt>
+					<dd>The time between dawn and sunrise or between sunset and dusk</dd>
+					<dt>The Golden Hour</dt>
+					<dd>The time when the sun is between 4 degrees below the horizon
+					and 6 degrees above.</dd>
+					<dt>The Blue Hour</dt>
+					<dd>The time when the sun is between 6 and 4 degrees below the
+					horizon.</dd>
+					<dt>Time At Elevation</dt>
+					<dd>The time when the sun is at a specific elevation for either a
+					rising or a setting sun.</dd>
+					<dt>Solar Azimuth</dt>
+					<dd>The number of degrees clockwise from North at which the sun can be
+					seen</dd>
+					<dt>Solar Zenith</dt>
+					<dd>The angle of the sun down from directly above the observer</dd>
+					<dt>Solar Elevation</dt>
+					<dd>The number of degrees up from the horizon at which the sun can
+					be seen</dd>
+					<dt>Rahukaalam</dt>
+					<dd>Rahukaalam or the period of Rahu is a certain amount of time
+						every day that is considered inauspicious for any new venture according to
+					Indian Vedic astrology".</dd>
+					<dt>Moon Phase</dt>
+					<dd>The phase of the moon for a specified date.</dd>
+				</dl>
+				<p>Astral also comes with a geocoder containing a local database that allows you to
+					look up information for a small set of locations,
+				<a href="#additional_locations">new locations can be added</a>.</p>
+				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+					<h2>Examples</h2>
+				</a>
+				<p>The following examples demonstrates some of the functionality available in the
+				module</p>
+				<a href="#sun" id="sun" style="color: inherit; text-decoration: none;">
+					<h3>Sun</h3>
+				</a>
+				<pre><code class="language-typescript">&gt; <span class="hljs-keyword">import</span> { LocationInfo } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral"</span>;
+&gt; <span class="hljs-keyword">let</span> city = <span class="hljs-keyword">new</span> LocationInfo(<span class="hljs-string">"London"</span>, <span class="hljs-string">"England"</span>, <span class="hljs-string">"Europe/London"</span>, <span class="hljs-number">51.5</span>, <span class="hljs-number">-0.116</span>);
+&gt; <span class="hljs-built_in">console</span>.log(
+... <span class="hljs-string">`Information for <span class="hljs-subst">${city.name}</span>/<span class="hljs-subst">${city.region}</span>
+... Timezone: <span class="hljs-subst">${city.timezone}</span>
+... Latitude: <span class="hljs-subst">${city.latitude:<span class="hljs-number">.02</span>f}</span>; Longitude: <span class="hljs-subst">${city.longitude:<span class="hljs-number">.02</span>f}</span>`</span>
+... ));
+
+Information <span class="hljs-keyword">for</span> London/England
+Timezone: Europe/London
+Latitude: <span class="hljs-number">51.50</span>; Longitude: <span class="hljs-number">-0.12</span>
+
+&gt; <span class="hljs-keyword">import</span> { DateTime } <span class="hljs-keyword">from</span> <span class="hljs-string">"luxon"</span>;
+&gt; <span class="hljs-keyword">import</span> { sun } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral/sun"</span>;
+&gt; <span class="hljs-keyword">let</span> s = sun(city.observer, date=datetime.date(<span class="hljs-number">2009</span>, <span class="hljs-number">4</span>, <span class="hljs-number">22</span>));
+&gt; <span class="hljs-built_in">console</span>.log(
+... <span class="hljs-string">`Dawn:    <span class="hljs-subst">${s.dawn}</span>
+... Sunrise: <span class="hljs-subst">${s.sunrise}</span>
+... Noon:    <span class="hljs-subst">${s.noon}</span>
+... Sunset:  <span class="hljs-subst">${s.sunset}</span>
+... Dusk:    <span class="hljs-subst">${s.dusk}</span>`</span>
+... );
+
+Dawn:    <span class="hljs-number">2009</span><span class="hljs-number">-04</span><span class="hljs-number">-22</span> <span class="hljs-number">04</span>:<span class="hljs-number">13</span>:<span class="hljs-number">04.923309</span>+<span class="hljs-number">00</span>:<span class="hljs-number">00</span>
+Sunrise: <span class="hljs-number">2009</span><span class="hljs-number">-04</span><span class="hljs-number">-22</span> <span class="hljs-number">04</span>:<span class="hljs-number">50</span>:<span class="hljs-number">16.515411</span>+<span class="hljs-number">00</span>:<span class="hljs-number">00</span>
+Noon:    <span class="hljs-number">2009</span><span class="hljs-number">-04</span><span class="hljs-number">-22</span> <span class="hljs-number">11</span>:<span class="hljs-number">59</span>:<span class="hljs-number">02</span>+<span class="hljs-number">00</span>:<span class="hljs-number">00</span>
+Sunset:  <span class="hljs-number">2009</span><span class="hljs-number">-04</span><span class="hljs-number">-22</span> <span class="hljs-number">19</span>:<span class="hljs-number">08</span>:<span class="hljs-number">41.215821</span>+<span class="hljs-number">00</span>:<span class="hljs-number">00</span>
+Dusk:    <span class="hljs-number">2009</span><span class="hljs-number">-04</span><span class="hljs-number">-22</span> <span class="hljs-number">19</span>:<span class="hljs-number">46</span>:<span class="hljs-number">06.362457</span>+<span class="hljs-number">00</span>:<span class="hljs-number">00</span></code></pre>
+				<a href="#moon" id="moon" style="color: inherit; text-decoration: none;">
+					<h3>Moon</h3>
+				</a>
+				<pre><code>&gt; <span class="hljs-keyword">import</span> { DateTime } <span class="hljs-keyword">from</span> <span class="hljs-string">"luxon"</span>;
+&gt; <span class="hljs-keyword">import</span> { phase } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral/moon"</span>;
+&gt; console.log(moon.phase(datetime.date(<span class="hljs-number">2018</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)))
+<span class="hljs-number">13.255666666666668</span></code></pre><p>The moon phase method returns an number describing the phase, where the value is
+					between 0 and 27.99. The following lists the mapping of various values to the
+				description of the phase of the moon.</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Value</th>
+							<th>Phase</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>0 .. 6.99</td>
+							<td>New moon</td>
+						</tr>
+						<tr>
+							<td>7 .. 13.99</td>
+							<td>First quarter</td>
+						</tr>
+						<tr>
+							<td>14 .. 20.99</td>
+							<td>Full moon</td>
+						</tr>
+						<tr>
+							<td>21 .. 27.99</td>
+							<td>Last quarter</td>
+						</tr>
+				</tbody></table>
+				<p>If for example the number returned was 27.99 then the moon would be almost at
+					the New Moon phase, and if it was 24.00 it would be half way between the Last
+				Quarter and a New Moon.</p>
+				<p>Note: The moon phase does not depend on your location. However what the moon
+					actually looks like to you does depend on your location. If you&#39;re in the
+					southern hemisphere it looks different than if you were in the northern
+				hemisphere.</p>
+				<p>See <a href="http://moongazer.x10.mx/website/astronomy/moon-phases/">http://moongazer.x10.mx/website/astronomy/moon-phases/</a> for an example.</p>
+				<a href="#geocoder" id="geocoder" style="color: inherit; text-decoration: none;">
+					<h3>Geocoder</h3>
+				</a>
+				<pre><code class="language-typescript">&gt; <span class="hljs-keyword">import</span> { database, lookup } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral/geocoder"</span>;
+&gt; lookup(<span class="hljs-string">"London"</span>, database())
+LocationInfo(name=<span class="hljs-string">'London'</span>, region=<span class="hljs-string">'England'</span>, timezone=<span class="hljs-string">'Europe/London'</span>,
+latitude=<span class="hljs-number">51.473333333333336</span>, longitude=<span class="hljs-number">-0.0008333333333333334</span>)</code></pre>
+				<p>Note: Location elevations have been removed from the database. These were
+					added due to a misunderstanding of the affect of elevation on the times of the
+					sun. These are not required for the calculations, only the elevation of the
+					observer above/below the location is needed. See
+				<a href="#effect-of-elevation">Effect of Elevation</a> below.</p>
+				<a href="#custom-location" id="custom-location" style="color: inherit; text-decoration: none;">
+					<h4>Custom Location</h4>
+				</a>
+				<p>If you only need a single location that is not in the database then you can
+					construct a <code>LocationInfo</code> and fill in the values, either on
+				initialization</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { LocationInfo } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral"</span>;
+<span class="hljs-keyword">let</span> l = <span class="hljs-keyword">new</span> LocationInfo(<span class="hljs-string">'name'</span>, <span class="hljs-string">'region'</span>, <span class="hljs-string">'timezone/name'</span>, <span class="hljs-number">0.1</span>, <span class="hljs-number">1.2</span>);</code></pre>
+				<p>or set the attributes after initialization::</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { LocationInfo } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral"</span>;
+<span class="hljs-keyword">let</span> l = <span class="hljs-keyword">new</span> LocationInfo();
+l.name = <span class="hljs-string">'name'</span>;
+l.region = <span class="hljs-string">'region'</span>;
+l.timezone = <span class="hljs-string">'US/Central'</span>;
+l.latitude = <span class="hljs-number">0.1</span>;
+l.longitude = <span class="hljs-number">1.2</span>;</code></pre>
+				<p>Note: <code>name</code> and <code>region</code> can be anything you like.</p>
+				<a href="#additional-locations" id="additional-locations" style="color: inherit; text-decoration: none;">
+					<h4>Additional Locations</h4>
+				</a>
+				<p>You can add to the list of available locations using the
+					<code>add_locations</code> function and passing either a string with
+					one line per location or by passing an Array containing strings, Arrays or tuples
+				(lists and tuples are passed directly to the LocationInfo constructor).</p>
+				<pre><code class="language-typescript">&gt; <span class="hljs-keyword">import</span> { add_locations, database, lookup } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral/geocoder"</span>;
+&gt; <span class="hljs-keyword">let</span> db = database();
+&gt; <span class="hljs-keyword">try</span> {
+...     lookup(<span class="hljs-string">"Somewhere"</span>, db);
+... }
+... <span class="hljs-keyword">catch</span>(KeyError) {
+...     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Somewhere not found"</span>);
+... }
+...
+Somewhere not found
+&gt; add_locations(<span class="hljs-string">"Somewhere,Secret Location,UTC,24°28'N,39°36'E"</span>, db)
+&gt; lookup(<span class="hljs-string">"Somewhere"</span>, db)
+LocationInfo(name=<span class="hljs-string">'Somewhere'</span>, region=<span class="hljs-string">'Secret Location'</span>, timezone=<span class="hljs-string">'UTC'</span>,
+    latitude=<span class="hljs-number">24.466666666666665</span>, longitude=<span class="hljs-number">39.6</span>)</code></pre>
+				<a href="#timezone-groups" id="timezone-groups" style="color: inherit; text-decoration: none;">
+					<h4>Timezone Groups</h4>
+				</a>
+				<p>Timezone groups such as Europe can be accessed via the <code>group</code> function in
+				the <code>geocoder</code> module</p>
+				<pre><code class="language-typescript">&gt; <span class="hljs-keyword">import</span> { group } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral/geocoder"</span>;
+&gt; europe = group(<span class="hljs-string">"europe"</span>)
+&gt; sorted(europe.keys())
+[<span class="hljs-string">'aberdeen'</span>, <span class="hljs-string">'amsterdam'</span>, <span class="hljs-string">'andorra_la_vella'</span>, <span class="hljs-string">'ankara'</span>, <span class="hljs-string">'athens'</span>, ...]</code></pre>
+				<a href="#effect-of-elevation" id="effect-of-elevation" style="color: inherit; text-decoration: none;">
+					<h2>Effect of Elevation</h2>
+				</a>
+				<a href="#times-of-the-sun" id="times-of-the-sun" style="color: inherit; text-decoration: none;">
+					<h3>Times Of The Sun</h3>
+				</a>
+				<p>The times of the sun that you experience depend on what obscurs your view of it.
+					It may either be obscured by the horizon or some other geographical feature
+				(e.g. mountains)</p>
+				<ol>
+					<li><p>If what obscures you at ground level is the horizon and you are at a
+							elevation above ground level then the times of the sun depends on how far
+							further round the earth you can see due to your elevation (the sun rises
+						earlier and sets later).</p>
+						<p> The extra angle you can see round the earth is determined by calculating the
+							angle α in the image below based on your elevation above ground level, and
+						adding this to the depression angle for the sun calculations.</p>
+						<img src="media/elevation_horizon.svg"/>
+					</li>
+					<li><p>If your view is obscured by some other geographical feature than the horizon,
+							then the adjustment angle is based on how far you are above or below the
+						feature and your distance to it.</p>
+					</li>
+				</ol>
+				<p>For the first case i.e. obscured by the horizon you need to pass a single float
+					to the Observer as its elevation. For the second case pass a tuple of 2 floats.
+					The first being the vertical distance to the top of the feature and the second
+				the horizontal distance to the feature.</p>
+				<a href="#elevation-of-the-sun" id="elevation-of-the-sun" style="color: inherit; text-decoration: none;">
+					<h3>Elevation Of The Sun</h3>
+				</a>
+				<p>Even though an observer&#39;s elevation can significantly affect the times of the
+				sun the same is not true for the elevation angle from the observer to the sun.</p>
+				<p>As an example the diagram below shows the difference in angle between an
+				observer at ground level and one on the ISS orbiting 408 km above the earth.</p>
+				<img src="media/elevation_sun.svg"/>
+				<p>The largest difference between the two angles is when the angle at ground level
+				is 1 degree. The difference then is approximately 0.15 degrees.</p>
+				<p>At the summit of mount Everest (8,848 m) the maximum difference is 0.00338821
+				degrees.</p>
+				<p>Due to the very small difference the astral package does not currently adjust
+				the solar elevation for changes in observer elevation.</p>
+				<a href="#effect-of-refraction" id="effect-of-refraction" style="color: inherit; text-decoration: none;">
+					<h2>Effect of Refraction</h2>
+				</a>
+				<p>When viewing the sun the position you see it at is different from its actual
+					position due to the effect of atmospheric <code>refraction</code>_ which makes the sun
+					appear to be higher in the sky. The calculations in the package take this
+				refraction into account.</p>
+				<p>The <code>sunrise</code> and <code>sunset</code> functions use the
+					refraction at an angle when the sun is half of its apparent diameter below the
+					horizon. This is between about 30 and 32 arcminutes and for the astral package a
+				value of 32&quot; is used.</p>
+				<p>Note: The refraction calculation does not take into account temperature and
+				pressure which can affect the angle of refraction.</p>
+				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+					<h2>License</h2>
+				</a>
+				<p>This module is licensed under the terms of the <code>Apache</code>_ V2.0 license.</p>
+				<a href="#dependencies" id="dependencies" style="color: inherit; text-decoration: none;">
+					<h2>Dependencies</h2>
+				</a>
+				<p>Astral has one required external Python dependency on <code>pytz</code>.</p>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<p>To install Astral you should use the <code>pip</code>_ tool::</p>
+				<pre><code>pip3 <span class="hljs-keyword">install</span> astral</code></pre><p>!!! note Now that we are Python 3 only and pip provides a versioned executable
+					on Windows you should use the <code>pip3</code> command on all operating systems to ensure
+				you are targetting the right Python version.</p>
+				<a href="#cities" id="cities" style="color: inherit; text-decoration: none;">
+					<h2>Cities</h2>
+				</a>
+				<p>The module includes location and time zone data for the following cities. The
+					list includes all capital cities plus some from the UK. The list also includes
+				the US state capitals and some other US cities.</p>
+				<p>Aberdeen, Abu Dhabi, Abu Dhabi, Abuja, Accra, Addis Ababa, Adelaide, Al Jubail,
+					Albany, Albuquerque, Algiers, Amman, Amsterdam, Anchorage, Andorra la Vella,
+					Ankara, Annapolis, Antananarivo, Apia, Ashgabat, Asmara, Astana, Asuncion,
+					Athens, Atlanta, Augusta, Austin, Avarua, Baghdad, Baku, Baltimore, Bamako,
+					Bandar Seri Begawan, Bangkok, Bangui, Banjul, Barrow-In-Furness, Basse-Terre,
+					Basseterre, Baton Rouge, Beijing, Beirut, Belfast, Belgrade, Belmopan, Berlin,
+					Bern, Billings, Birmingham, Birmingham, Bishkek, Bismarck, Bissau, Bloemfontein,
+					Bogota, Boise, Bolton, Boston, Bradford, Brasilia, Bratislava, Brazzaville,
+					Bridgeport, Bridgetown, Brisbane, Bristol, Brussels, Bucharest, Bucuresti,
+					Budapest, Buenos Aires, Buffalo, Bujumbura, Burlington, Cairo, Canberra, Cape
+					Town, Caracas, Cardiff, Carson City, Castries, Cayenne, Charleston, Charlotte,
+					Charlotte Amalie, Cheyenne, Chicago, Chisinau, Cleveland, Columbia, Columbus,
+					Conakry, Concord, Copenhagen, Cotonou, Crawley, Dakar, Dallas, Damascus, Dammam,
+					Denver, Des Moines, Detroit, Dhaka, Dili, Djibouti, Dodoma, Doha, Douglas,
+					Dover, Dublin, Dushanbe, Edinburgh, El Aaiun, Fargo, Fort-de-France, Frankfort,
+					Freetown, Funafuti, Gaborone, George Town, Georgetown, Gibraltar, Glasgow,
+					Greenwich, Guatemala, Hanoi, Harare, Harrisburg, Hartford, Havana, Helena,
+					Helsinki, Hobart, Hong Kong, Honiara, Honolulu, Houston, Indianapolis,
+					Islamabad, Jackson, Jacksonville, Jakarta, Jefferson City, Jerusalem, Juba,
+					Jubail, Juneau, Kabul, Kampala, Kansas City, Kathmandu, Khartoum, Kiev, Kigali,
+					Kingston, Kingston, Kingstown, Kinshasa, Koror, Kuala Lumpur, Kuwait, La Paz,
+					Lansing, Las Vegas, Leeds, Leicester, Libreville, Lilongwe, Lima, Lincoln,
+					Lisbon, Little Rock, Liverpool, Ljubljana, Lome, London, Los Angeles,
+					Louisville, Luanda, Lusaka, Luxembourg, Macau, Madinah, Madison, Madrid, Majuro,
+					Makkah, Malabo, Male, Mamoudzou, Managua, Manama, Manchester, Manchester,
+					Manila, Maputo, Maseru, Masqat, Mbabane, Mecca, Medina, Melbourne, Memphis,
+					Mexico, Miami, Milwaukee, Minneapolis, Minsk, Mogadishu, Monaco, Monrovia,
+					Montevideo, Montgomery, Montpelier, Moroni, Moscow, Moskva, Mumbai, Muscat,
+					N&#39;Djamena, Nairobi, Nashville, Nassau, Naypyidaw, New Delhi, New Orleans, New
+					York, Newark, Newcastle, Newcastle Upon Tyne, Ngerulmud, Niamey, Nicosia,
+					Norwich, Nouakchott, Noumea, Nuku&#39;alofa, Nuuk, Oklahoma City, Olympia, Omaha,
+					Oranjestad, Orlando, Oslo, Ottawa, Ouagadougou, Oxford, P&#39;yongyang, Pago Pago,
+					Palikir, Panama, Papeete, Paramaribo, Paris, Perth, Philadelphia, Phnom Penh,
+					Phoenix, Pierre, Plymouth, Podgorica, Port Louis, Port Moresby, Port of Spain,
+					Port-Vila, Port-au-Prince, Portland, Portland, Porto-Novo, Portsmouth, Prague,
+					Praia, Pretoria, Pristina, Providence, Quito, Rabat, Raleigh, Reading,
+					Reykjavik, Richmond, Riga, Riyadh, Road Town, Rome, Roseau, Sacramento, Saint
+					Helier, Saint Paul, Saint Pierre, Saipan, Salem, Salt Lake City, San Diego, San
+					Francisco, San Jose, San Juan, San Marino, San Salvador, Sana, Sana&#39;a, Santa Fe,
+					Santiago, Santo Domingo, Sao Tome, Sarajevo, Seattle, Seoul, Sheffield,
+					Singapore, Sioux Falls, Skopje, Sofia, Southampton, Springfield, Sri
+					Jayawardenapura Kotte, St. George&#39;s, St. John&#39;s, St. Peter Port, Stanley,
+					Stockholm, Sucre, Suva, Swansea, Swindon, Sydney, T&#39;bilisi, Taipei, Tallahassee,
+					Tallinn, Tarawa, Tashkent, Tbilisi, Tegucigalpa, Tehran, Thimphu, Tirana,
+					Tirane, Tokyo, Toledo, Topeka, Torshavn, Trenton, Tripoli, Tunis, Ulaanbaatar,
+					Ulan Bator, Vaduz, Valletta, Vienna, Vientiane, Vilnius, Virginia Beach, W.
+					Indies, Warsaw, Washington DC, Wellington, Wichita, Willemstad, Wilmington,
+				Windhoek, Wolverhampton, Yamoussoukro, Yangon, Yaounde, Yaren, Yerevan, Zagreb</p>
+				<a href="#us-cities" id="us-cities" style="color: inherit; text-decoration: none;">
+					<h3>US Cities</h3>
+				</a>
+				<p>Albany, Albuquerque, Anchorage, Annapolis, Atlanta, Augusta, Austin, Baltimore,
+					Baton Rouge, Billings, Birmingham, Bismarck, Boise, Boston, Bridgeport, Buffalo,
+					Burlington, Carson City, Charleston, Charlotte, Cheyenne, Chicago, Cleveland,
+					Columbia, Columbus, Concord, Dallas, Denver, Des Moines, Detroit, Dover, Fargo,
+					Frankfort, Harrisburg, Hartford, Helena, Honolulu, Houston, Indianapolis,
+					Jackson, Jacksonville, Jefferson City, Juneau, Kansas City, Lansing, Las Vegas,
+					Lincoln, Little Rock, Los Angeles, Louisville, Madison, Manchester, Memphis,
+					Miami, Milwaukee, Minneapolis, Montgomery, Montpelier, Nashville, New Orleans,
+					New York, Newark, Oklahoma City, Olympia, Omaha, Orlando, Philadelphia, Phoenix,
+					Pierre, Portland, Portland, Providence, Raleigh, Richmond, Sacramento, Saint
+					Paul, Salem, Salt Lake City, San Diego, San Francisco, Santa Fe, Seattle, Sioux
+					Falls, Springfield, Tallahassee, Toledo, Topeka, Trenton, Virginia Beach,
+				Wichita, Wilmington</p>
+				<a href="#thanks" id="thanks" style="color: inherit; text-decoration: none;">
+					<h2>Thanks</h2>
+				</a>
+				<p>The sun calculations in this module were adapted, for Python, from the
+				spreadsheets on the following page.</p>
+				<pre><code>| https:<span class="hljs-regexp">//</span>www.esrl.noaa.gov<span class="hljs-regexp">/gmd/g</span>rad<span class="hljs-regexp">/solcalc/</span>calcdetails.html</code></pre><p>Refraction calculation is taken from</p>
+				<pre><code><span class="hljs-string">| Sun-Pointing Programs and Their Accuracy</span>
+<span class="hljs-string">| John C. Zimmerman Of Sandia National Laboratones</span>
+<span class="hljs-string">| https://www.osti.gov/servlets/purl/6377969</span></code></pre><p>Which cites the following as the original source</p>
+				<pre><code><span class="hljs-string">|</span> <span class="hljs-string">In</span> <span class="hljs-string">Solar</span> <span class="hljs-string">Energy</span> <span class="hljs-string">Vol</span> <span class="hljs-number">20</span> <span class="hljs-literal">No</span>.<span class="hljs-number">5</span><span class="hljs-string">-C</span>
+<span class="hljs-string">|</span> <span class="hljs-string">Robert</span> <span class="hljs-string">Walraven</span> <span class="hljs-string">Of</span> <span class="hljs-string">The</span> <span class="hljs-string">University</span> <span class="hljs-string">Of</span> <span class="hljs-string">California,</span> <span class="hljs-string">Davis</span></code></pre><p>The moon phase calculation is based on some javascript code from Sky and
+				Telescope magazine</p>
+				<pre><code><span class="hljs-string">| Moon-phase calculation</span>
+<span class="hljs-string">| Roger W. Sinnott, Sky &amp; Telescope, June 16, 2006.</span>
+<span class="hljs-string">| http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html</span></code></pre><p>Also to <code>Sphinx</code>_ for making doc generation an easy thing (not that the writing
+				of the docs is any easier.)</p>
+				<a href="#contact" id="contact" style="color: inherit; text-decoration: none;">
+					<h2>Contact</h2>
+				</a>
+				<p>Simon Kennedy <a href="mailto:&#115;&#102;&#102;&#x6a;&#x75;&#x6e;&#x6b;&#105;&#101;&#43;&#x63;&#x6f;&#100;&#x65;&#x40;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;">&#115;&#102;&#102;&#x6a;&#x75;&#x6e;&#x6b;&#105;&#101;&#43;&#x63;&#x6f;&#100;&#x65;&#x40;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_geocoder_.html">&quot;geocoder&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_index_.html">&quot;index&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_location_.html">&quot;location&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_moon_.html">&quot;moon&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_sun_.html">&quot;sun&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
