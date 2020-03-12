@@ -74,7 +74,7 @@ Indian Vedic astrology".</dd>
 </dl>
 
 Astral also comes with a geocoder containing a local database that allows you to
-look up information for a small set of locations
+look up information for a small set of locations,
 [new locations can be added](#additional_locations).
 
 ## Examples
@@ -164,7 +164,7 @@ observer above/below the location is needed. See
 #### Custom Location
 
 If you only need a single location that is not in the database then you can
-construct a LocationInfo and fill in the values, either on
+construct a `LocationInfo` and fill in the values, either on
 initialization
 
 ```typescript
