@@ -3,7 +3,7 @@ const rewire = require("rewire");
 const expect = require("chai").expect;
 const util = require("util");
 
-import { Depression, Observer } from "../astral";
+import { Depression, Observer } from "../astral/index";
 const sun = rewire("../astral/sun");
 
 const london = new Observer(
