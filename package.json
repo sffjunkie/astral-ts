@@ -5,10 +5,10 @@
     "main": "dist/index.js",
     "scripts": {
         "clean": "rimraf dist",
-        "build": "rimraf dist && mkdir dist && cp src/astral/*.ts ./dist/",
+        "build": "rimraf dist && tsc",
         "test": "mocha --require ts-node/register ./src/test/**/*.ts",
         "test-watch": "mocha --require ts-node/register --watch --watch-files ./src/**/*.ts",
-        "make-docs": "typedoc --media ./src/media --out doc ./src/astral/"
+        "build-docs": "typedoc --media ./src/doc/media --out docs ./src/astral/"
     },
     "keywords": [
         "sun",
