@@ -204,8 +204,8 @@ one line per location or by passing an Array containing strings, Arrays or tuple
 ... }
 ...
 Somewhere not found
->>> add_locations("Somewhere,Secret Location,UTC,24°28'N,39°36'E", db)
->>> lookup("Somewhere", db)
+> add_locations("Somewhere,Secret Location,UTC,24°28'N,39°36'E", db)
+> lookup("Somewhere", db)
 LocationInfo(name='Somewhere', region='Secret Location', timezone='UTC',
     latitude=24.466666666666665, longitude=39.6)
 ```
@@ -216,6 +216,7 @@ Timezone groups such as Europe can be accessed via the `group` function in
 the `geocoder` module
 
 ```typescript
+> import { group } from "astral/geocoder";
 > europe = group("europe")
 > sorted(europe.keys())
 ['aberdeen', 'amsterdam', 'andorra_la_vella', 'ankara', 'athens', ...]
