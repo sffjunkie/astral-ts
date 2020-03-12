@@ -3,6 +3,7 @@
     "version": "2.1.0",
     "description": "calculations for the position of the sun and the moon",
     "main": "dist/index.js",
+    "files": ["dist/*.js"],
     "scripts": {
         "clean": "rimraf dist",
         "build": "rimraf dist && tsc",
