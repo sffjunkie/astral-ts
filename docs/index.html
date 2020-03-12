@@ -162,10 +162,11 @@ Dusk:    <span class="hljs-number">2009</span><span class="hljs-number">-04</spa
 				<a href="#moon" id="moon" style="color: inherit; text-decoration: none;">
 					<h3>Moon</h3>
 				</a>
-				<pre><code>&gt; <span class="hljs-keyword">import</span> { DateTime } <span class="hljs-keyword">from</span> <span class="hljs-string">"luxon"</span>;
+				<pre><code class="language-typescript">&gt; <span class="hljs-keyword">import</span> { DateTime } <span class="hljs-keyword">from</span> <span class="hljs-string">"luxon"</span>;
 &gt; <span class="hljs-keyword">import</span> { phase } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral/moon"</span>;
-&gt; console.log(moon.phase(datetime.date(<span class="hljs-number">2018</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)))
-<span class="hljs-number">13.255666666666668</span></code></pre><p>The moon phase method returns an number describing the phase, where the value is
+&gt; <span class="hljs-built_in">console</span>.log(moon.phase(datetime.date(<span class="hljs-number">2018</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)))
+<span class="hljs-number">13.255666666666668</span></code></pre>
+				<p>The moon phase method returns an number describing the phase, where the value is
 					between 0 and 27.99. The following lists the mapping of various values to the
 				description of the phase of the moon.</p>
 				<table>
@@ -404,21 +405,25 @@ LocationInfo(name=<span class="hljs-string">'Somewhere'</span>, region=<span cla
 				</a>
 				<p>The sun calculations in this module were adapted, for Python, from the
 				spreadsheets on the following page.</p>
-				<pre><code>| https:<span class="hljs-regexp">//</span>www.esrl.noaa.gov<span class="hljs-regexp">/gmd/g</span>rad<span class="hljs-regexp">/solcalc/</span>calcdetails.html</code></pre><p>Refraction calculation is taken from</p>
-				<pre><code><span class="hljs-string">| Sun-Pointing Programs and Their Accuracy</span>
-<span class="hljs-string">| John C. Zimmerman Of Sandia National Laboratones</span>
-<span class="hljs-string">| https://www.osti.gov/servlets/purl/6377969</span></code></pre><p>Which cites the following as the original source</p>
-				<pre><code><span class="hljs-string">|</span> <span class="hljs-string">In</span> <span class="hljs-string">Solar</span> <span class="hljs-string">Energy</span> <span class="hljs-string">Vol</span> <span class="hljs-number">20</span> <span class="hljs-literal">No</span>.<span class="hljs-number">5</span><span class="hljs-string">-C</span>
-<span class="hljs-string">|</span> <span class="hljs-string">Robert</span> <span class="hljs-string">Walraven</span> <span class="hljs-string">Of</span> <span class="hljs-string">The</span> <span class="hljs-string">University</span> <span class="hljs-string">Of</span> <span class="hljs-string">California,</span> <span class="hljs-string">Davis</span></code></pre><p>The moon phase calculation is based on some javascript code from Sky and
+				<p>| <a href="https://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html">https://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html</a></p>
+				<p>Refraction calculation is taken from</p>
+				<p>| Sun-Pointing Programs and Their Accuracy
+					| John C. Zimmerman Of Sandia National Laboratones
+				| <a href="https://www.osti.gov/servlets/purl/6377969">https://www.osti.gov/servlets/purl/6377969</a></p>
+				<p>Which cites the following as the original source</p>
+				<p>| In Solar Energy Vol 20 No.5-C
+				| Robert Walraven Of The University Of California, Davis</p>
+				<p>The moon phase calculation is based on some javascript code from Sky and
 				Telescope magazine</p>
-				<pre><code><span class="hljs-string">| Moon-phase calculation</span>
-<span class="hljs-string">| Roger W. Sinnott, Sky &amp; Telescope, June 16, 2006.</span>
-<span class="hljs-string">| http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html</span></code></pre><p>Also to <code>Sphinx</code>_ for making doc generation an easy thing (not that the writing
+				<p>| Moon-phase calculation
+					| Roger W. Sinnott, Sky &amp; Telescope, June 16, 2006.
+				| <a href="http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html">http://www.skyandtelescope.com/wp-content/observing-tools/moonphase/moon.html</a></p>
+				<p>Also to <code>Sphinx</code>_ for making doc generation an easy thing (not that the writing
 				of the docs is any easier.)</p>
 				<a href="#contact" id="contact" style="color: inherit; text-decoration: none;">
 					<h2>Contact</h2>
 				</a>
-				<p>Simon Kennedy <a href="mailto:&#115;&#102;&#102;&#x6a;&#x75;&#x6e;&#x6b;&#105;&#101;&#43;&#x63;&#x6f;&#100;&#x65;&#x40;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;">&#115;&#102;&#102;&#x6a;&#x75;&#x6e;&#x6b;&#105;&#101;&#43;&#x63;&#x6f;&#100;&#x65;&#x40;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
+				<p>Simon Kennedy <a href="mailto:&#115;&#x66;&#x66;&#x6a;&#117;&#110;&#x6b;&#x69;&#101;&#x2b;&#x63;&#111;&#x64;&#101;&#x40;&#103;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;">&#115;&#x66;&#x66;&#x6a;&#117;&#110;&#x6b;&#x69;&#101;&#x2b;&#x63;&#111;&#x64;&#101;&#x40;&#103;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;</a></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
