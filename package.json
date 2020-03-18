@@ -7,9 +7,9 @@
     "scripts": {
         "clean": "rimraf dist",
         "build": "rimraf dist && tsc",
-        "test": "mocha --require ts-node/register ./src/test/**/*.ts",
-        "test-watch": "mocha --require ts-node/register --watch --watch-files ./src/**/*.ts",
-        "build-docs": "typedoc --media ./src/doc/media --out docs ./src/astral/"
+        "test": "mocha --require ts-node/register ./src/**/*.spec.ts",
+        "test-watch": "mocha --require ts-node/register --watch --watch-files ./src/**/*.spec.ts",
+        "build-docs": "rimraf docs && typedoc --exclude ./src/**/*.spec.ts --media ./src/doc/media --out docs ./src/astral/"
     },
     "keywords": [
         "sun",

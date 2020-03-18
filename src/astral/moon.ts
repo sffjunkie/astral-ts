@@ -1,5 +1,5 @@
 import { today } from "./index";
-import { julianday } from "./sun";
+import { julianDayNumber } from "./sun";
 import { DateTime } from "luxon";
 
 function proper_angle(value: number): number {
@@ -13,7 +13,7 @@ function proper_angle(value: number): number {
 }
 
 function _phase_asfloat(date: DateTime): number {
-    let jd = julianday(date);
+    let jd = julianDayNumber(date);
     let DT = Math.pow(jd - 2382148, 2) / (41048480 * 86400);
     let T = (jd + DT - 2451545.0) / 36525;
     let T2 = Math.pow(T, 2);

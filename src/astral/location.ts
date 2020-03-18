@@ -1,9 +1,7 @@
 import { IANAZone } from "luxon";
 import { Depression, LocationInfo, Observer, dmsToNumber } from "./index";
 
-/**
- * Provides access to information for single location.
- */
+/** Provides access to information for single location. */
 class Location {
     location_info: LocationInfo;
     solar_depression: number;
@@ -76,6 +74,8 @@ class Location {
         this.location_info.longitude = dmsToNumber(value);
     }
 
+    /**
+     * Return the Luxon IANAZone for this location's timezone */
     get tzinfo():IANAZone {
         return new IANAZone(this.location_info.timezone);
     }

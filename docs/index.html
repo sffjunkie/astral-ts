@@ -131,40 +131,41 @@
 				<a href="#sun" id="sun" style="color: inherit; text-decoration: none;">
 					<h3>Sun</h3>
 				</a>
-				<pre><code class="language-typescript">&gt; <span class="hljs-keyword">import</span> { LocationInfo } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral"</span>;
+				<pre><code class="language-typescript">&gt; <span class="hljs-keyword">import</span> { DateTime } <span class="hljs-keyword">from</span> <span class="hljs-string">"luxon"</span>;
+&gt; <span class="hljs-keyword">import</span> { LocationInfo } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral"</span>;
 &gt; <span class="hljs-keyword">let</span> city = <span class="hljs-keyword">new</span> LocationInfo(<span class="hljs-string">"London"</span>, <span class="hljs-string">"England"</span>, <span class="hljs-string">"Europe/London"</span>, <span class="hljs-number">51.5</span>, <span class="hljs-number">-0.116</span>);
 &gt; <span class="hljs-built_in">console</span>.log(
 ... <span class="hljs-string">`Information for <span class="hljs-subst">${city.name}</span>/<span class="hljs-subst">${city.region}</span>
 ... Timezone: <span class="hljs-subst">${city.timezone}</span>
-... Latitude: <span class="hljs-subst">${city.latitude:<span class="hljs-number">.02</span>f}</span>; Longitude: <span class="hljs-subst">${city.longitude:<span class="hljs-number">.02</span>f}</span>`</span>
-... ));
+... Latitude: <span class="hljs-subst">${city.latitude}</span>; Longitude: <span class="hljs-subst">${city.longitude}</span>
+... `</span>);
 
 Information <span class="hljs-keyword">for</span> London/England
 Timezone: Europe/London
-Latitude: <span class="hljs-number">51.50</span>; Longitude: <span class="hljs-number">-0.12</span>
+Latitude: <span class="hljs-number">51.50</span>; Longitude: <span class="hljs-number">-0.116</span>
 
 &gt; <span class="hljs-keyword">import</span> { DateTime } <span class="hljs-keyword">from</span> <span class="hljs-string">"luxon"</span>;
 &gt; <span class="hljs-keyword">import</span> { sun } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral/sun"</span>;
-&gt; <span class="hljs-keyword">let</span> s = sun(city.observer, date=datetime.date(<span class="hljs-number">2009</span>, <span class="hljs-number">4</span>, <span class="hljs-number">22</span>));
+&gt; <span class="hljs-keyword">let</span> s = sun(city.observer, DateTime.fromObject({year: <span class="hljs-number">2009</span>, month: <span class="hljs-number">4</span>, day: <span class="hljs-number">22</span>}));
 &gt; <span class="hljs-built_in">console</span>.log(
-... <span class="hljs-string">`Dawn:    <span class="hljs-subst">${s.dawn}</span>
-... Sunrise: <span class="hljs-subst">${s.sunrise}</span>
-... Noon:    <span class="hljs-subst">${s.noon}</span>
-... Sunset:  <span class="hljs-subst">${s.sunset}</span>
-... Dusk:    <span class="hljs-subst">${s.dusk}</span>`</span>
+... <span class="hljs-string">`Dawn:    <span class="hljs-subst">${s[<span class="hljs-string">"dawn"</span>].toISO()}</span>
+... Sunrise: <span class="hljs-subst">${s[<span class="hljs-string">"sunrise"</span>].toISO()}</span>
+... Noon:    <span class="hljs-subst">${s[<span class="hljs-string">"noon"</span>].toISO()}</span>
+... Sunset:  <span class="hljs-subst">${s[<span class="hljs-string">"sunset"</span>].toISO()}</span>
+... Dusk:    <span class="hljs-subst">${s[<span class="hljs-string">"dusk"</span>].toISO()}</span>`</span>
 ... );
 
-Dawn:    <span class="hljs-number">2009</span><span class="hljs-number">-04</span><span class="hljs-number">-22</span> <span class="hljs-number">04</span>:<span class="hljs-number">13</span>:<span class="hljs-number">04.923309</span>+<span class="hljs-number">00</span>:<span class="hljs-number">00</span>
-Sunrise: <span class="hljs-number">2009</span><span class="hljs-number">-04</span><span class="hljs-number">-22</span> <span class="hljs-number">04</span>:<span class="hljs-number">50</span>:<span class="hljs-number">16.515411</span>+<span class="hljs-number">00</span>:<span class="hljs-number">00</span>
-Noon:    <span class="hljs-number">2009</span><span class="hljs-number">-04</span><span class="hljs-number">-22</span> <span class="hljs-number">11</span>:<span class="hljs-number">59</span>:<span class="hljs-number">02</span>+<span class="hljs-number">00</span>:<span class="hljs-number">00</span>
-Sunset:  <span class="hljs-number">2009</span><span class="hljs-number">-04</span><span class="hljs-number">-22</span> <span class="hljs-number">19</span>:<span class="hljs-number">08</span>:<span class="hljs-number">41.215821</span>+<span class="hljs-number">00</span>:<span class="hljs-number">00</span>
-Dusk:    <span class="hljs-number">2009</span><span class="hljs-number">-04</span><span class="hljs-number">-22</span> <span class="hljs-number">19</span>:<span class="hljs-number">46</span>:<span class="hljs-number">06.362457</span>+<span class="hljs-number">00</span>:<span class="hljs-number">00</span></code></pre>
+Dawn:    <span class="hljs-number">2009</span><span class="hljs-number">-04</span><span class="hljs-number">-22</span>T04:<span class="hljs-number">13</span>:<span class="hljs-number">04.923</span>Z
+Sunrise: <span class="hljs-number">2009</span><span class="hljs-number">-04</span><span class="hljs-number">-22</span>T04:<span class="hljs-number">50</span>:<span class="hljs-number">16.515</span>Z
+Noon:    <span class="hljs-number">2009</span><span class="hljs-number">-04</span><span class="hljs-number">-22</span>T11:<span class="hljs-number">59</span>:<span class="hljs-number">02.000</span>Z
+Sunset:  <span class="hljs-number">2009</span><span class="hljs-number">-04</span><span class="hljs-number">-22</span>T19:<span class="hljs-number">08</span>:<span class="hljs-number">41.215</span>Z
+Dusk:    <span class="hljs-number">2009</span><span class="hljs-number">-04</span><span class="hljs-number">-22</span>T19:<span class="hljs-number">46</span>:<span class="hljs-number">06.362</span>Z</code></pre>
 				<a href="#moon" id="moon" style="color: inherit; text-decoration: none;">
 					<h3>Moon</h3>
 				</a>
 				<pre><code class="language-typescript">&gt; <span class="hljs-keyword">import</span> { DateTime } <span class="hljs-keyword">from</span> <span class="hljs-string">"luxon"</span>;
 &gt; <span class="hljs-keyword">import</span> { phase } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral/moon"</span>;
-&gt; <span class="hljs-built_in">console</span>.log(moon.phase(datetime.date(<span class="hljs-number">2018</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)))
+&gt; <span class="hljs-built_in">console</span>.log(phase(DateTime.fromObject({year: <span class="hljs-number">2018</span>, month: <span class="hljs-number">1</span>, day: <span class="hljs-number">1</span>})));
 <span class="hljs-number">13.255666666666668</span></code></pre>
 				<p>The moon phase method returns an number describing the phase, where the value is
 					between 0 and 27.99. The following lists the mapping of various values to the
@@ -200,29 +201,29 @@ Dusk:    <span class="hljs-number">2009</span><span class="hljs-number">-04</spa
 					actually looks like to you does depend on your location. If you&#39;re in the
 					southern hemisphere it looks different than if you were in the northern
 				hemisphere.</p>
-				<p>See <a href="http://moongazer.x10.mx/website/astronomy/moon-phases/">http://moongazer.x10.mx/website/astronomy/moon-phases/</a> for an example.</p>
+				<p>See <a href="http://moongazer.x10.mx/website/astronomy/moon-phases/">http://moongazer.x10.mx/website/astronomy/moon-phases/</a> for further information.</p>
 				<a href="#geocoder" id="geocoder" style="color: inherit; text-decoration: none;">
 					<h3>Geocoder</h3>
 				</a>
 				<pre><code class="language-typescript">&gt; <span class="hljs-keyword">import</span> { database, lookup } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral/geocoder"</span>;
-&gt; lookup(<span class="hljs-string">"London"</span>, database())
-LocationInfo(name=<span class="hljs-string">'London'</span>, region=<span class="hljs-string">'England'</span>, timezone=<span class="hljs-string">'Europe/London'</span>,
-latitude=<span class="hljs-number">51.473333333333336</span>, longitude=<span class="hljs-number">-0.0008333333333333334</span>)</code></pre>
-				<p>Note: Location elevations have been removed from the database. These were
-					added due to a misunderstanding of the affect of elevation on the times of the
-					sun. These are not required for the calculations, only the elevation of the
-					observer above/below the location is needed. See
-				<a href="#effect-of-elevation">Effect of Elevation</a> below.</p>
+&gt; <span class="hljs-built_in">console</span>.log(lookup(<span class="hljs-string">"London"</span>, database()));
+LocationInfo {
+  name: <span class="hljs-string">'London'</span>,
+  region: <span class="hljs-string">'England'</span>,
+  timezone: <span class="hljs-string">'Europe/London'</span>,
+  latitude: <span class="hljs-number">51.473333333333336</span>,
+  longitude: <span class="hljs-number">-0.0008333333333333334</span>
+}</code></pre>
 				<a href="#custom-location" id="custom-location" style="color: inherit; text-decoration: none;">
 					<h4>Custom Location</h4>
 				</a>
 				<p>If you only need a single location that is not in the database then you can
 					construct a <code>LocationInfo</code> and fill in the values, either on
 				initialization</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { LocationInfo } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral"</span>;
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { LocationInfo } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral/index"</span>;
 <span class="hljs-keyword">let</span> l = <span class="hljs-keyword">new</span> LocationInfo(<span class="hljs-string">'name'</span>, <span class="hljs-string">'region'</span>, <span class="hljs-string">'timezone/name'</span>, <span class="hljs-number">0.1</span>, <span class="hljs-number">1.2</span>);</code></pre>
 				<p>or set the attributes after initialization::</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { LocationInfo } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral"</span>;
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { LocationInfo } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral/index"</span>;
 <span class="hljs-keyword">let</span> l = <span class="hljs-keyword">new</span> LocationInfo();
 l.name = <span class="hljs-string">'name'</span>;
 l.region = <span class="hljs-string">'region'</span>;
@@ -237,28 +238,33 @@ l.longitude = <span class="hljs-number">1.2</span>;</code></pre>
 					<code>add_locations</code> function and passing either a string with
 					one line per location or by passing an Array containing strings, Arrays or tuples
 				(lists and tuples are passed directly to the LocationInfo constructor).</p>
-				<pre><code class="language-typescript">&gt; <span class="hljs-keyword">import</span> { add_locations, database, lookup } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral/geocoder"</span>;
+				<pre><code class="language-typescript">&gt; <span class="hljs-keyword">import</span> { addLocations, database, lookup } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral/geocoder"</span>;
 &gt; <span class="hljs-keyword">let</span> db = database();
 &gt; <span class="hljs-keyword">try</span> {
 ...     lookup(<span class="hljs-string">"Somewhere"</span>, db);
 ... }
-... <span class="hljs-keyword">catch</span>(KeyError) {
-...     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Somewhere not found"</span>);
+... <span class="hljs-keyword">catch</span>(err) {
+...     <span class="hljs-built_in">console</span>.log(err.msg);
 ... }
 ...
-Somewhere not found
-&gt; add_locations(<span class="hljs-string">"Somewhere,Secret Location,UTC,24°28'N,39°36'E"</span>, db)
-&gt; lookup(<span class="hljs-string">"Somewhere"</span>, db)
-LocationInfo(name=<span class="hljs-string">'Somewhere'</span>, region=<span class="hljs-string">'Secret Location'</span>, timezone=<span class="hljs-string">'UTC'</span>,
-    latitude=<span class="hljs-number">24.466666666666665</span>, longitude=<span class="hljs-number">39.6</span>)</code></pre>
+Location or group <span class="hljs-string">"Somewhere"</span> not found <span class="hljs-keyword">in</span> database
+&gt; addLocations(<span class="hljs-string">"Somewhere,Secret Location,UTC,24°28'N,39°36'E"</span>, db);
+&gt; <span class="hljs-built_in">console</span>.log(lookup(<span class="hljs-string">"Somewhere"</span>, db));
+LocationInfo {
+  name: <span class="hljs-string">'Somewhere'</span>,
+  region: <span class="hljs-string">'Secret Location'</span>,
+  timezone: <span class="hljs-string">'UTC'</span>,
+  latitude: <span class="hljs-number">24.466666666666665</span>,
+  longitude: <span class="hljs-number">39.6</span>
+}</code></pre>
 				<a href="#timezone-groups" id="timezone-groups" style="color: inherit; text-decoration: none;">
 					<h4>Timezone Groups</h4>
 				</a>
 				<p>Timezone groups such as Europe can be accessed via the <code>group</code> function in
 				the <code>geocoder</code> module</p>
 				<pre><code class="language-typescript">&gt; <span class="hljs-keyword">import</span> { group } <span class="hljs-keyword">from</span> <span class="hljs-string">"astral/geocoder"</span>;
-&gt; europe = group(<span class="hljs-string">"europe"</span>)
-&gt; sorted(europe.keys())
+&gt; <span class="hljs-keyword">let</span> europe = group(<span class="hljs-string">"europe"</span>);
+&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Object</span>.keys(europe).sort());
 [<span class="hljs-string">'aberdeen'</span>, <span class="hljs-string">'amsterdam'</span>, <span class="hljs-string">'andorra_la_vella'</span>, <span class="hljs-string">'ankara'</span>, <span class="hljs-string">'athens'</span>, ...]</code></pre>
 				<a href="#effect-of-elevation" id="effect-of-elevation" style="color: inherit; text-decoration: none;">
 					<h2>Effect of Elevation</h2>
@@ -284,8 +290,8 @@ LocationInfo(name=<span class="hljs-string">'Somewhere'</span>, region=<span cla
 						feature and your distance to it.</p>
 					</li>
 				</ol>
-				<p>For the first case i.e. obscured by the horizon you need to pass a single float
-					to the Observer as its elevation. For the second case pass a tuple of 2 floats.
+				<p>For the first case i.e. obscured by the horizon you need to pass a single number
+					to the Observer as its elevation. For the second case pass a tuple of 2 numbers.
 					The first being the vertical distance to the top of the feature and the second
 				the horizontal distance to the feature.</p>
 				<a href="#elevation-of-the-sun" id="elevation-of-the-sun" style="color: inherit; text-decoration: none;">
@@ -306,8 +312,8 @@ LocationInfo(name=<span class="hljs-string">'Somewhere'</span>, region=<span cla
 					<h2>Effect of Refraction</h2>
 				</a>
 				<p>When viewing the sun the position you see it at is different from its actual
-					position due to the effect of a
-					<a href="https://en.wikipedia.org/wiki/Atmospheric_refraction">tmospheric refraction</a>
+					position due to the effect of
+					<a href="https://en.wikipedia.org/wiki/Atmospheric_refraction">atmospheric refraction</a>
 					which makes the sun appear to be higher in the sky. The calculations in the
 				package take this refraction into account.</p>
 				<p>The <code>sunrise</code> and <code>sunset</code> functions use the
@@ -419,7 +425,7 @@ of the docs is any easier.) -->
 				<a href="#contact" id="contact" style="color: inherit; text-decoration: none;">
 					<h2>Contact</h2>
 				</a>
-				<p>Simon Kennedy <a href="mailto:&#x73;&#x66;&#x66;&#106;&#x75;&#110;&#107;&#105;&#x65;&#x2b;&#x63;&#111;&#100;&#x65;&#x40;&#103;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;">&#x73;&#x66;&#x66;&#106;&#x75;&#110;&#107;&#105;&#x65;&#x2b;&#x63;&#111;&#100;&#x65;&#x40;&#103;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;</a></p>
+				<p>Simon Kennedy <a href="mailto:&#x73;&#102;&#x66;&#106;&#117;&#x6e;&#x6b;&#x69;&#101;&#43;&#x63;&#x6f;&#x64;&#x65;&#x40;&#x67;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;">&#x73;&#102;&#x66;&#106;&#117;&#x6e;&#x6b;&#x69;&#101;&#43;&#x63;&#x6f;&#x64;&#x65;&#x40;&#x67;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;</a></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -427,6 +433,9 @@ of the docs is any easier.) -->
 				<ul>
 					<li class="globals  ">
 						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_error_.html">&quot;error&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_geocoder_.html">&quot;geocoder&quot;</a>

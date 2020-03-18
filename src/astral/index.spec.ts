@@ -1,7 +1,7 @@
 const assert = require("assert");
 const expect = require("chai").expect;
 
-import { dmsToNumber } from "../astral/index";
+import { dmsToNumber } from "./index";
 
 describe("Test Misc functions", function() {
     describe("dmsToNumber", function() {

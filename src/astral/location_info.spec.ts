@@ -1,6 +1,6 @@
 const expect = require("chai").expect;
 
-import { LocationInfo } from "../astral/index";
+import { LocationInfo } from "./index";
 
 describe("LocationInfo", function() {
     describe("constructor", function() {

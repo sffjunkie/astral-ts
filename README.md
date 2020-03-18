@@ -85,34 +85,35 @@ module
 ### Sun
 
 ```typescript
+> import { DateTime } from "luxon";
 > import { LocationInfo } from "astral";
 > let city = new LocationInfo("London", "England", "Europe/London", 51.5, -0.116);
 > console.log(
 ... `Information for ${city.name}/${city.region}
 ... Timezone: ${city.timezone}
-... Latitude: ${city.latitude:.02f}; Longitude: ${city.longitude:.02f}`
-... ));
+... Latitude: ${city.latitude}; Longitude: ${city.longitude}
+... `);
 
 Information for London/England
 Timezone: Europe/London
-Latitude: 51.50; Longitude: -0.12
+Latitude: 51.50; Longitude: -0.116
 
 > import { DateTime } from "luxon";
 > import { sun } from "astral/sun";
-> let s = sun(city.observer, date=datetime.date(2009, 4, 22));
+> let s = sun(city.observer, DateTime.fromObject({year: 2009, month: 4, day: 22}));
 > console.log(
-... `Dawn:    ${s.dawn}
-... Sunrise: ${s.sunrise}
-... Noon:    ${s.noon}
-... Sunset:  ${s.sunset}
-... Dusk:    ${s.dusk}`
+... `Dawn:    ${s["dawn"].toISO()}
+... Sunrise: ${s["sunrise"].toISO()}
+... Noon:    ${s["noon"].toISO()}
+... Sunset:  ${s["sunset"].toISO()}
+... Dusk:    ${s["dusk"].toISO()}`
 ... );
 
-Dawn:    2009-04-22 04:13:04.923309+00:00
-Sunrise: 2009-04-22 04:50:16.515411+00:00
-Noon:    2009-04-22 11:59:02+00:00
-Sunset:  2009-04-22 19:08:41.215821+00:00
-Dusk:    2009-04-22 19:46:06.362457+00:00
+Dawn:    2009-04-22T04:13:04.923Z
+Sunrise: 2009-04-22T04:50:16.515Z
+Noon:    2009-04-22T11:59:02.000Z
+Sunset:  2009-04-22T19:08:41.215Z
+Dusk:    2009-04-22T19:46:06.362Z
 ```
 
 ### Moon
@@ -120,7 +121,7 @@ Dusk:    2009-04-22 19:46:06.362457+00:00
 ```typescript
 > import { DateTime } from "luxon";
 > import { phase } from "astral/moon";
-> console.log(moon.phase(datetime.date(2018, 1, 1)))
+> console.log(phase(DateTime.fromObject({year: 2018, month: 1, day: 1})));
 13.255666666666668
 ```
 
@@ -144,22 +145,21 @@ actually looks like to you does depend on your location. If you're in the
 southern hemisphere it looks different than if you were in the northern
 hemisphere.
 
-See http://moongazer.x10.mx/website/astronomy/moon-phases/ for an example.
+See http://moongazer.x10.mx/website/astronomy/moon-phases/ for further information.
 
 ### Geocoder
 
 ```typescript
 > import { database, lookup } from "astral/geocoder";
-> lookup("London", database())
-LocationInfo(name='London', region='England', timezone='Europe/London',
-latitude=51.473333333333336, longitude=-0.0008333333333333334)
+> console.log(lookup("London", database()));
+LocationInfo {
+  name: 'London',
+  region: 'England',
+  timezone: 'Europe/London',
+  latitude: 51.473333333333336,
+  longitude: -0.0008333333333333334
+}
 ```
-
-Note: Location elevations have been removed from the database. These were
-added due to a misunderstanding of the affect of elevation on the times of the
-sun. These are not required for the calculations, only the elevation of the
-observer above/below the location is needed. See
-[Effect of Elevation](#effect-of-elevation) below.
 
 #### Custom Location
 
@@ -168,14 +168,14 @@ construct a `LocationInfo` and fill in the values, either on
 initialization
 
 ```typescript
-import { LocationInfo } from "astral";
+import { LocationInfo } from "astral/index";
 let l = new LocationInfo('name', 'region', 'timezone/name', 0.1, 1.2);
 ```
 
 or set the attributes after initialization::
 
 ```typescript
-import { LocationInfo } from "astral";
+import { LocationInfo } from "astral/index";
 let l = new LocationInfo();
 l.name = 'name';
 l.region = 'region';
@@ -194,20 +194,25 @@ one line per location or by passing an Array containing strings, Arrays or tuple
 (lists and tuples are passed directly to the LocationInfo constructor).
 
 ```typescript
-> import { add_locations, database, lookup } from "astral/geocoder";
+> import { addLocations, database, lookup } from "astral/geocoder";
 > let db = database();
 > try {
 ...     lookup("Somewhere", db);
 ... }
-... catch(KeyError) {
-...     console.log("Somewhere not found");
+... catch(err) {
+...     console.log(err.msg);
 ... }
 ...
-Somewhere not found
-> add_locations("Somewhere,Secret Location,UTC,24°28'N,39°36'E", db)
-> lookup("Somewhere", db)
-LocationInfo(name='Somewhere', region='Secret Location', timezone='UTC',
-    latitude=24.466666666666665, longitude=39.6)
+Location or group "Somewhere" not found in database
+> addLocations("Somewhere,Secret Location,UTC,24°28'N,39°36'E", db);
+> console.log(lookup("Somewhere", db));
+LocationInfo {
+  name: 'Somewhere',
+  region: 'Secret Location',
+  timezone: 'UTC',
+  latitude: 24.466666666666665,
+  longitude: 39.6
+}
 ```
 
 #### Timezone Groups
@@ -217,8 +222,8 @@ the `geocoder` module
 
 ```typescript
 > import { group } from "astral/geocoder";
-> europe = group("europe")
-> sorted(europe.keys())
+> let europe = group("europe");
+> console.log(Object.keys(europe).sort());
 ['aberdeen', 'amsterdam', 'andorra_la_vella', 'ankara', 'athens', ...]
 ```
 
