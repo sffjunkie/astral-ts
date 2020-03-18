@@ -6,3 +6,4 @@ coverage
 package-lock.json
 *.log
 *.tgz
+docs
