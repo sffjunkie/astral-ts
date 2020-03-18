@@ -16,7 +16,7 @@ import { DateTime } from "luxon";
 import * as geocoder from "./geocoder";
 import * as sun from "./sun";
 import * as moon from "./moon";
-import * as location from "./location";
+import { Location } from "./location";
 
 type Elevation = number | [number, number];
 
@@ -245,5 +245,5 @@ export {
     sun,
     moon,
     geocoder,
-    location
+    Location
 };

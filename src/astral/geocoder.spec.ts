@@ -23,13 +23,13 @@ describe("Test geocoder functions", function() {
 
     describe("lookup", function() {
         it("find a group", function() {
-            let group = geocoder.lookup("asia", test_db);
+            let group = geocoder.group("asia", test_db);
             expect(group).to.not.be.null;
             expect(Object.values(group).length).to.be.above(0);
         });
 
         it("find a location", function() {
-            let loc = geocoder.lookup("london", test_db);
+            let loc = geocoder.location("london", test_db);
             expect(loc).to.not.be.null;
             expect(loc.name).to.equal("London");
             expect(loc.region).to.equal("England");
@@ -39,20 +39,21 @@ describe("Test geocoder functions", function() {
         });
 
         it("find a location with a region", function() {
-            let loc = geocoder.lookup("Birmingham,England", test_db);
+            let loc = geocoder.location("Birmingham,England", test_db);
             expect(loc).to.not.be.null;
             expect(loc.name).to.equal("Birmingham");
             expect(loc.region).to.equal("England");
 
-            loc = geocoder.lookup("Birmingham,USA", test_db);
+            loc = geocoder.location("Birmingham,USA", test_db);
             expect(loc).to.not.be.null;
             expect(loc.name).to.equal("Birmingham");
             expect(loc.region).to.equal("USA");
         });
 
         it("not be able to find a location not in the db", function() {
-            let loc = geocoder.lookup("somewhere", test_db);
-            expect(loc).to.be.null;
+            expect(function() {
+                geocoder.location("somewhere", test_db);
+            }).to.throw();
         });
     });
 
@@ -70,7 +71,8 @@ describe("Test geocoder functions", function() {
             let db = geocoder.database();
             let count = locationCount(db);
             geocoder.addLocations(
-                "A Place,A Region,Asia/Nicosia,35°10'N,33°25'E,162.0\n", db
+                "A Place,A Region,Asia/Nicosia,35°10'N,33°25'E,162.0\n",
+                db
             );
             expect(locationCount(db)).to.equal(count + 1);
         });
@@ -78,33 +80,46 @@ describe("Test geocoder functions", function() {
         it("be able to add a array of strings", function() {
             let db = geocoder.database();
             let count = locationCount(db);
-            geocoder.addLocations([
-                "A Place,A Region,Asia/Nicosia,35°10'N,33°25'E,162.0",
-                "Another Place,Somewhere else,Asia/Nicosia,35°10'N,33°25'E,162.0",
-            ], db);
+            geocoder.addLocations(
+                [
+                    "A Place,A Region,Asia/Nicosia,35°10'N,33°25'E,162.0",
+                    "Another Place,Somewhere else,Asia/Nicosia,35°10'N,33°25'E,162.0"
+                ],
+                db
+            );
             expect(locationCount(db)).to.equal(count + 2);
         });
 
         it("be able to add a array of arrays", function() {
             let db = geocoder.database();
             let count = locationCount(db);
-            geocoder.addLocations(            [
-                ["A Place", "A Region", "Asia/Nicosia", "35°10'N", "33°25'E", "162.0"],
+            geocoder.addLocations(
                 [
-                    "Another Place",
-                    "Somewhere else",
-                    "Asia/Nicosia",
-                    "35°10'N",
-                    "33°25'E",
-                    "162.0",
+                    [
+                        "A Place",
+                        "A Region",
+                        "Asia/Nicosia",
+                        "35°10'N",
+                        "33°25'E",
+                        "162.0"
+                    ],
+                    [
+                        "Another Place",
+                        "Somewhere else",
+                        "Asia/Nicosia",
+                        "35°10'N",
+                        "33°25'E",
+                        "162.0"
+                    ]
                 ],
-            ], db);
+                db
+            );
             expect(locationCount(db)).to.equal(count + 2);
         });
     });
 
     describe("sanitize_key", function() {
-        it("sanitize a key", function (){
+        it("sanitize a key", function() {
             let func = geocoder.__get__("_sanitize_key");
             expect(func("Los Angeles")).to.equal("los_angeles");
         });

@@ -2,8 +2,8 @@ const chai = require("chai");
 const expect = chai.expect;
 const assert = chai.assert;
 
-import { LocationInfo } from "../astral/index";
-import { Location } from "../astral/location";
+import { LocationInfo } from "./index";
+import { Location } from "./location";
 import { IANAZone } from "luxon";
 
 describe("Location", function() {

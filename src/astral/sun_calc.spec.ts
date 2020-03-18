@@ -14,7 +14,7 @@ let new_delhi = new index.LocationInfo(
 );
 
 describe("Test sun backend functions", function() {
-    describe("julianday", function() {
+    describe("julianDayNumber", function() {
         var tests = [
             { args: { year: 2012, month: 1, day: 1 }, expected: 2455927.5 },
             { args: { year: 2013, month: 1, day: 1 }, expected: 2456293.5 },
@@ -26,14 +26,14 @@ describe("Test sun backend functions", function() {
             it(
                 "calc the correct value for " + util.inspect(test.args),
                 function() {
-                    let res = sun.julianday(DateTime.fromObject(test.args));
+                    let res = sun.julianDayNumber(DateTime.fromObject(test.args));
                     expect(res).to.equal(test.expected);
                 }
             );
         });
     });
 
-    describe("jday_to_jcentury", function() {
+    describe("julianDayNumberToJulianCentury", function() {
         var tests = [
             { args: 2455927.5, expected: 0.119986311 },
             { args: 2456293.5, expected: 0.130006845 },
@@ -41,7 +41,7 @@ describe("Test sun backend functions", function() {
             { args: 2402998.5, expected: -1.329130732 },
             { args: 2890153.5, expected: 12.00844627 }
         ];
-        let func_to_test = sun.__get__("jday_to_jcentury");
+        let func_to_test = sun.__get__("julianDayNumberToJulianCentury");
         tests.forEach(function(test) {
             it("calc the correct value for " + test.args, function() {
                 let res = func_to_test(test.args);
@@ -50,7 +50,7 @@ describe("Test sun backend functions", function() {
         });
     });
 
-    describe("jcentury_to_jday", function() {
+    describe("julianCenturyToJulianDayNumber", function() {
         var tests = [
             { args: 0.119986311, expected: 2455927.5 },
             { args: 0.130006845, expected: 2456293.5 },
@@ -58,7 +58,7 @@ describe("Test sun backend functions", function() {
             { args: -1.329130732, expected: 2402998.5 },
             { args: 12.00844627, expected: 2890153.5 }
         ];
-        let func_to_test = sun.__get__("jcentury_to_jday");
+        let func_to_test = sun.__get__("julianCenturyToJulianDayNumber");
         tests.forEach(function(test) {
             it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
@@ -67,13 +67,13 @@ describe("Test sun backend functions", function() {
         });
     });
 
-    describe("geom_mean_long_sun", function() {
+    describe("geomMeanLongSun", function() {
         var tests = [
             { args: -1.329130732, expected: 310.7374254 },
             { args: 12.00844627, expected: 233.8203529 },
             { args: 0.184134155, expected: 69.43779106 }
         ];
-        let func_to_test = sun.__get__("geom_mean_long_sun");
+        let func_to_test = sun.__get__("geomMeanLongSun");
         tests.forEach(function(test) {
             it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
@@ -82,13 +82,13 @@ describe("Test sun backend functions", function() {
         });
     });
 
-    describe("geom_mean_anomaly_sun", function() {
+    describe("geomMeanAnomalySun", function() {
         var tests = [
             { args: 0.119986311, expected: 4676.922342 },
             { args: 12.00844627, expected: 432650.1681 },
             { args: 0.184134155, expected: 6986.1838 }
         ];
-        let func_to_test = sun.__get__("geom_mean_anomaly_sun");
+        let func_to_test = sun.__get__("geomMeanAnomalySun");
         tests.forEach(function(test) {
             it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
@@ -97,13 +97,13 @@ describe("Test sun backend functions", function() {
         });
     });
 
-    describe("eccentric_location_earth_orbit", function() {
+    describe("eccentricLocationEarthOrbit", function() {
         var tests = [
             { args: 0.119986311, expected: 0.016703588 },
             { args: 12.00844627, expected: 0.016185564 },
             { args: 0.184134155, expected: 0.016700889 }
         ];
-        let func_to_test = sun.__get__("eccentric_location_earth_orbit");
+        let func_to_test = sun.__get__("eccentricLocationEarthOrbit");
         tests.forEach(function(test) {
             it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
@@ -112,13 +112,13 @@ describe("Test sun backend functions", function() {
         });
     });
 
-    describe("sun_eq_of_center", function() {
+    describe("sunEqOfCenter", function() {
         var tests = [
             { args: 0.119986311, expected: -0.104951648 },
             { args: 12.00844627, expected: -1.753028843 },
             { args: 0.184134155, expected: 1.046852316 }
         ];
-        let func_to_test = sun.__get__("sun_eq_of_center");
+        let func_to_test = sun.__get__("sunEqOfCenter");
         tests.forEach(function(test) {
             it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
@@ -127,13 +127,13 @@ describe("Test sun backend functions", function() {
         });
     });
 
-    describe("sun_true_long", function() {
+    describe("sunTrueLong", function() {
         var tests = [
             { args: 0.119986311, expected: 279.9610686 },
             { args: 12.00844627, expected: 232.0673358 },
             { args: 0.184134155, expected: 70.48465428 }
         ];
-        let func_to_test = sun.__get__("sun_true_long");
+        let func_to_test = sun.__get__("sunTrueLong");
         tests.forEach(function(test) {
             it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
@@ -142,13 +142,13 @@ describe("Test sun backend functions", function() {
         });
     });
 
-    describe("sun_true_anomoly", function() {
+    describe("sunTrueAnomoly", function() {
         var tests = [
             { args: 0.119986311, expected: 4676.817391 },
             { args: 12.00844627, expected: 432648.4151 },
             { args: 0.184134155, expected: 6987.230663 }
         ];
-        let func_to_test = sun.__get__("sun_true_anomoly");
+        let func_to_test = sun.__get__("sunTrueAnomoly");
         tests.forEach(function(test) {
             it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
@@ -157,13 +157,13 @@ describe("Test sun backend functions", function() {
         });
     });
 
-    describe("sun_rad_vector", function() {
+    describe("sunRadVector", function() {
         var tests = [
             { args: 0.119986311, expected: 0.983322329 },
             { args: 12.00844627, expected: 0.994653382 },
             { args: 0.184134155, expected: 1.013961204 }
         ];
-        let func_to_test = sun.__get__("sun_rad_vector");
+        let func_to_test = sun.__get__("sunRadVector");
         tests.forEach(function(test) {
             it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
@@ -172,13 +172,13 @@ describe("Test sun backend functions", function() {
         });
     });
 
-    describe("sun_apparent_long", function() {
+    describe("sunApparentLong", function() {
         var tests = [
             { args: 0.119986311, expected: 279.95995849827 },
             { args: 12.00844627, expected: 232.065823531804 },
             { args: 0.184134155, expected: 70.475244256027 }
         ];
-        let func_to_test = sun.__get__("sun_apparent_long");
+        let func_to_test = sun.__get__("sunApparentLong");
         tests.forEach(function(test) {
             it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
@@ -187,13 +187,13 @@ describe("Test sun backend functions", function() {
         });
     });
 
-    describe("mean_obliquity_of_ecliptic", function() {
+    describe("meanObliquityOfEcliptic", function() {
         var tests = [
             { args: 0.119986311, expected: 23.4377307876356 },
             { args: 12.00844627, expected: 23.2839797200388 },
             { args: 0.184134155, expected: 23.4368965974579 }
         ];
-        let func_to_test = sun.__get__("mean_obliquity_of_ecliptic");
+        let func_to_test = sun.__get__("meanObliquityOfEcliptic");
         tests.forEach(function(test) {
             it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
@@ -202,13 +202,13 @@ describe("Test sun backend functions", function() {
         });
     });
 
-    describe("obliquity_correction", function() {
+    describe("obliquityCorrection", function() {
         var tests = [
             { args: 0.119986311, expected: 23.4369810410121 },
             { args: 12.00844627, expected: 23.2852236361575 },
             { args: 0.184134155, expected: 23.4352890293474 }
         ];
-        let func_to_test = sun.__get__("obliquity_correction");
+        let func_to_test = sun.__get__("obliquityCorrection");
         tests.forEach(function(test) {
             it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
@@ -217,13 +217,13 @@ describe("Test sun backend functions", function() {
         });
     });
 
-    describe("sun_rt_ascension", function() {
+    describe("sunRtAscension", function() {
         var tests = [
             { args: 0.119986311, expected: -79.16480352 },
             { args: 12.00844627, expected: -130.3163904 },
             { args: 0.184134155, expected: 68.86915896 }
         ];
-        let func_to_test = sun.__get__("sun_rt_ascension");
+        let func_to_test = sun.__get__("sunRtAscension");
         tests.forEach(function(test) {
             it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
@@ -232,13 +232,13 @@ describe("Test sun backend functions", function() {
         });
     });
 
-    describe("sun_declination", function() {
+    describe("sunDeclination", function() {
         var tests = [
             { args: 0.119986311, expected: -23.06317068 },
             { args: 12.00844627, expected: -18.16694394 },
             { args: 0.184134155, expected: 22.01463552 }
         ];
-        let func_to_test = sun.__get__("sun_declination");
+        let func_to_test = sun.__get__("sunDeclination");
         tests.forEach(function(test) {
             it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
@@ -247,13 +247,13 @@ describe("Test sun backend functions", function() {
         });
     });
 
-    describe("eq_of_time", function() {
+    describe("eqOfTime", function() {
         var tests = [
             { args: 0.119986311, expected: -3.078194825 },
             { args: 12.00844627, expected: 16.58348133 },
             { args: 0.184134155, expected: 2.232039737 }
         ];
-        let func_to_test = sun.__get__("eq_of_time");
+        let func_to_test = sun.__get__("eqOfTime");
         tests.forEach(function(test) {
             it("calc the correct value for " + test.args, function() {
                 var res = func_to_test(test.args);
@@ -262,20 +262,20 @@ describe("Test sun backend functions", function() {
         });
     });
 
-    describe("hour_angle", function() {
+    describe("hourAngle", function() {
         var tests = [
             { args: { year: 2012, month: 1, day: 1 }, expected: 1.03555238 },
             { args: { year: 3200, month: 11, day: 14 }, expected: 1.172253118 },
             { args: { year: 2018, month: 6, day: 1 }, expected: 2.133712555 }
         ];
-        let func_to_test = sun.__get__("hour_angle");
+        let func_to_test = sun.__get__("hourAngle");
         tests.forEach(function(test) {
             it(
                 "calc the correct value for " + util.inspect(test.args),
                 function() {
-                    let jd = sun.julianday(DateTime.fromObject(test.args));
-                    let jc = sun.__get__("jday_to_jcentury")(jd);
-                    let decl = sun.__get__("sun_declination")(jc);
+                    let jd = sun.julianDayNumber(DateTime.fromObject(test.args));
+                    let jc = sun.__get__("julianDayNumberToJulianCentury")(jd);
+                    let decl = sun.__get__("sunDeclination")(jc);
                     let res = func_to_test(
                         51.50853,
                         decl,

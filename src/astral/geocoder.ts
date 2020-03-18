@@ -1,4 +1,5 @@
 import { LocationInfo } from "./index";
+import { KeyError } from "./error";
 
 // #region Locations
 const _LOCATION_INFO: string = `Abu Dhabi,UAE,Asia/Dubai,24°28'N,54°22'E
@@ -413,7 +414,7 @@ function _sanitize_key(key: string): string {
     return key.toLowerCase().replace(" ", "_");
 }
 
-function _indexable_to_locationinfo(array: Array<any>): LocationInfo {
+function _array_to_locationinfo(array: Array<any>): LocationInfo {
     return new LocationInfo(array[0], array[1], array[2], array[3], array[4]);
 }
 
@@ -442,7 +443,7 @@ function _add_locations_from_str(
         line = line.trim();
         if (line.length != 0 && line[0] != "#") {
             let info = line.split(",");
-            let location = _indexable_to_locationinfo(info);
+            let location = _array_to_locationinfo(info);
             _add_location_to_db(location, db);
         }
     });
@@ -454,7 +455,7 @@ function _add_locations_from_list(
 ) {
     for (let info of location_list) {
         if (info instanceof Array) {
-            let location = _indexable_to_locationinfo(info);
+            let location = _array_to_locationinfo(info);
             _add_location_to_db(location, db);
         } else {
             _add_locations_from_str(info, db);
@@ -473,16 +474,6 @@ function addLocations(locations: Array<any> | string, db: LocationDatabase) {
 function _get_group(name: string, db: LocationDatabase): LocationGroup | null {
     if (name in db) return db[name];
     else return null;
-}
-
-function group(region: string, db: LocationDatabase): LocationGroup | null {
-    let key = _sanitize_key(region);
-    for (let [group, group_info] of Object.entries(db)) {
-        if (group === key) {
-            return group_info;
-        }
-        return null;
-    }
 }
 
 function _lookup_in_group(
@@ -516,28 +507,41 @@ function _lookup_in_group(
 }
 
 /**
- * Look up a location or group
- * @param name location or group name to look up
+ * Look up a location
+ * @param name location to look up
  * @param db The database to look in
+ * @throws KeyError if the location is not in the database
  */
-function lookup(
+function location(
     name: string,
     db: LocationDatabase
 ): LocationInfo | LocationGroup | null {
     let key = _sanitize_key(name);
     for (let group_name in db) {
         var group = db[group_name];
-        if (group_name == key) {
-            return group;
-        } else {
-            var location = _lookup_in_group(key, group);
-            if (location != null) {
-                return location;
-            }
+        var location = _lookup_in_group(key, group);
+        if (location != null) {
+            return location;
         }
     }
 
-    return null;
+    throw new KeyError(`Location "${name}" not found in database`);
+}
+
+/**
+ * Look up a timezone group
+ * @param name group to look up
+ * @param db The database to look in
+ * @throws KeyError if the location is not in the database
+ */
+function group(name: string, db: LocationDatabase): LocationGroup | null {
+    let key = _sanitize_key(name);
+    for (let [group, group_info] of Object.entries(db)) {
+        if (group === key) {
+            return group_info;
+        }
+        throw new KeyError(`Group "${name}" not found in database`);
+    }
 }
 
 /**
@@ -555,4 +559,4 @@ function* allLocations(db: LocationDatabase) {
     }
 }
 
-export { database, addLocations, group, lookup, allLocations };
+export { database, addLocations, group, location, allLocations };

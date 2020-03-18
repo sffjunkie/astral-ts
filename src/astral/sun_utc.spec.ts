@@ -3,7 +3,7 @@ const rewire = require("rewire");
 const expect = require("chai").expect;
 const util = require("util");
 
-import { Depression, Observer } from "../astral/index";
+import { Depression, Observer } from "./index";
 const sun = rewire("../astral/sun");
 
 const london = new Observer(
@@ -45,8 +45,8 @@ describe("Sun UTC functions", function() {
                 "calc the correct value for " + util.inspect(test.args),
                 function() {
                     let dt = DateTime.fromObject(test.args);
-                    let td = dt.setZone("utc");
-                    let res = sun.sun(london, dt).dawn;
+                    dt = dt.setZone("utc");
+                    let res = sun.sun(london, {date: dt}).dawn;
                     let expected = DateTime.fromObject(test.expected);
                     expected = expected.setZone("UTC");
                     expect(res.toSeconds()).to.be.closeTo(expected.toSeconds(), 60);
