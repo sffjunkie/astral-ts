@@ -1,6 +1,6 @@
-import { today } from "./index";
-import { julianDayNumber } from "./sun";
-import { DateTime } from "luxon";
+import { today } from './index';
+import { julianDayNumber } from './sun';
+import { DateTime } from 'luxon';
 
 function proper_angle(value: number): number {
     if (value > 0.0) {
@@ -44,8 +44,8 @@ function _phase_asfloat(date: DateTime): number {
  *          21 .. 27.99   Last quarter
  *          ============  ==============
  *
- * @param date The date to calculate the phase for. Dates are always in the UTC timezone.
- *             If not specified then today's date is used.
+ * @param date - The date to calculate the phase for. Dates are always in the UTC timezone.
+ *               If not specified then today's date is used.
  * @returns A number designating the phase.
  */
 function phase(date?: DateTime): number {

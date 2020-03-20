@@ -1,6 +1,6 @@
-import { DateTime } from "luxon";
-import { Observer, SunDirection, today, now, Depression } from "./index";
-import { MathError, ValueError } from "./error";
+import { DateTime } from 'luxon';
+import { Observer, SunDirection, today, now, Depression } from './index';
+import { MathError, ValueError } from './error';
 
 // Using 32 arc minutes as sun's apparent diameter
 const SUN_APPARENT_RADIUS = 32.0 / (60.0 * 2.0);
@@ -30,7 +30,8 @@ function julianDayNumber(date: DateTime): number {
 
 /**
  * Convert a Julian Day number to a Julian Century
- * @param julianday The Julian Day number to convert
+ *
+ * @param julianday - The Julian Day number to convert
  */
 function julianDayNumberToJulianCentury(julianday: number): number {
     // """Convert a Julian Day number to a Julian Century"""
@@ -39,7 +40,8 @@ function julianDayNumberToJulianCentury(julianday: number): number {
 
 /**
  * Convert a Julian Century number to a Julian Day
- * @param juliancentury The Julian Century number to convert
+ *
+ * @param juliancentury - The Julian Century number to convert
  */
 function julianCenturyToJulianDayNumber(juliancentury: number): number {
     // """Convert a Julian Century number to a Julian Day"""
@@ -49,7 +51,6 @@ function julianCenturyToJulianDayNumber(juliancentury: number): number {
 /**
  * Calculate the geometric mean longitude of the sun */
 function geomMeanLongSun(juliancentury: number): number {
-    // """calculate the geometric mean longitude of the sun"""
     let l0 =
         280.46646 + juliancentury * (36000.76983 + 0.0003032 * juliancentury);
     return ((l0 % 360.0) + 360.0) % 360.0;
@@ -66,10 +67,8 @@ function geomMeanAnomalySun(juliancentury: number): number {
 
 /**
  * Calculate the eccentricity of Earth's orbit
- * @param juliancentury
  */
 function eccentricLocationEarthOrbit(juliancentury: number): number {
-    // """calculate the eccentricity of Earth's orbit"""
     return (
         0.016708634 -
         juliancentury * (0.000042037 + 0.0000001267 * juliancentury)
@@ -79,7 +78,6 @@ function eccentricLocationEarthOrbit(juliancentury: number): number {
 /**
  * Calculate the equation of the center of the sun */
 function sunEqOfCenter(juliancentury: number): number {
-    // """calculate the equation of the center of the sun"""
     let m = geomMeanAnomalySun(juliancentury);
 
     let mrad = _toRadians(m);
@@ -99,7 +97,6 @@ function sunEqOfCenter(juliancentury: number): number {
 /**
  * Calculate the sun's true longitude */
 function sunTrueLong(juliancentury: number): number {
-    // """calculate the sun's true longitude"""
     let l0 = geomMeanLongSun(juliancentury);
     let c = sunEqOfCenter(juliancentury);
 
@@ -109,7 +106,6 @@ function sunTrueLong(juliancentury: number): number {
 /**
  * Calculate the sun's true anomaly */
 function sunTrueAnomoly(juliancentury: number): number {
-    // """calculate the sun's true anomaly"""
     let m = geomMeanAnomalySun(juliancentury);
     let c = sunEqOfCenter(juliancentury);
 
@@ -204,11 +200,11 @@ function eqOfTime(juliancentury: number): number {
  * Calculate the hour angle of the sun
  * See https://en.wikipedia.org/wiki/Hour_angle#Solar_hour_angle
  *
- * @param latitude The latitude of the observer
- * @param declination The declination of the sun
- * @param zenith The zenith angle of the sun
- * @param direction The direction of traversal of the sun
- * @throws {Object}
+ * @param latitude - The latitude of the observer
+ * @param declination - The declination of the sun
+ * @param zenith - The zenith angle of the sun
+ * @param direction - The direction of traversal of the sun
+ * @throws MathError
  */
 function hourAngle(
     latitude: number,
@@ -220,23 +216,18 @@ function hourAngle(
     let declination_rad = _toRadians(declination);
     let zenith_rad = _toRadians(zenith);
 
-    // n = cos(zenith_rad)
-    // d = cos(latitude_rad) * cos(declination_rad)
-    // t = tan(latitude_rad) * tan(declination_rad)
-    // h = (n / d) - t
-
     let h =
         (Math.cos(zenith_rad) -
             Math.sin(latitude_rad) * Math.sin(declination_rad)) /
         (Math.cos(latitude_rad) * Math.cos(declination_rad));
 
     if (isNaN(h)) {
-        throw new MathError("Unable to calculate hour_angle");
+        throw new MathError('Unable to calculate hour_angle');
     }
 
     let HA = Math.acos(h);
     if (isNaN(HA)) {
-        throw new MathError("Unable to calculate hour_angle");
+        throw new MathError('Unable to calculate hour_angle');
     } else {
         if (direction == SunDirection.SETTING) {
             HA = -HA;
@@ -248,19 +239,10 @@ function hourAngle(
 /**
  * Calculate the extra degrees of depression that you can see round the earth
    due to the increase in elevation.
- * @param elevation Elevation above the earth in metres
+ * @param elevation - Elevation above the earth in metres
+ * @returns A number of degrees to add to adjust for the elevation of the observer 
  */
 function adjustToHorizon(elevation: number): number {
-    // """calculate the extra degrees of depression that you can see round the earth
-    // due to the increase in elevation.
-
-    // Args:
-    //     elevation: Elevation above the earth in metres
-
-    // Returns:
-    //     A number of degrees to add to adjust for the elevation of the observer
-    // """
-
     if (elevation <= 0) {
         return 0;
     }
@@ -281,9 +263,9 @@ function adjustToHorizon(elevation: number): number {
 /**
  * Calculate the extra degrees of depression needed for the sun to be visible
  * over an obscuring feature.
- * @param elevation A tuple of 2 floating point numbers. The first number is
- *                  the horizontal distance to the feature and the second is
- *                  the vertical distance
+ * @param elevation - A tuple of 2 floating point numbers. The first number is
+ *                    the horizontal distance to the feature and the second is
+ *                    the vertical distance
  */
 function adjustToObscuringFeature(elevation: [number, number]): number {
     if (elevation[0] == 0.0) {
@@ -306,7 +288,7 @@ function adjustToObscuringFeature(elevation: [number, number]): number {
 
 /**
  * Calculate the degrees of refraction of the sun due to the sun's elevation.
- * @param zenith The zenith angle to the sun
+ * @param zenith - The zenith angle to the sun
  */
 function refractionAtZenith(zenith: number): number {
     let elevation = 90 - zenith;
@@ -337,10 +319,10 @@ function refractionAtZenith(zenith: number): number {
 
 /**
  * Calculate the time in the UTC timezone when the sun transits the specificed zenith
- * @param observer An observer viewing the sun at a specific, latitude, longitude and elevation
- * @param date The date to calculate for
- * @param zenith The zenith angle for which to calculate the transit time
- * @param direction The direction that the sun is traversing
+ * @param observer - An observer viewing the sun at a specific, latitude, longitude and elevation
+ * @param date - The date to calculate for
+ * @param zenith - The zenith angle for which to calculate the transit time
+ * @param direction - The direction that the sun is traversing
  * @returns The time when the sun transits the specificed zenith
  */
 function timeOfTransit(
@@ -359,7 +341,7 @@ function timeOfTransit(
     }
 
     let adjustment_for_elevation = 0.0;
-    if (typeof observer.elevation == "number" && observer.elevation > 0.0) {
+    if (typeof observer.elevation == 'number' && observer.elevation > 0.0) {
         adjustment_for_elevation = adjustToHorizon(observer.elevation);
     } else if (observer.elevation instanceof Array) {
         adjustment_for_elevation = adjustToObscuringFeature(observer.elevation);
@@ -415,20 +397,20 @@ function timeOfTransit(
  *     Elevations greater than 90 degrees are converted to a setting sun
  *     i.e. an elevation of 110 will calculate the time for a setting sun at 70 degrees.
  *
- * @param observer  Observer to calculate for
- * @param elevation Elevation of the sun in degrees above the horizon to calculate for.
- * @param date      Date to calculate for. Default is today's date in the timezone `tzinfo`.
- * @param direction Determines whether the calculated time is for the sun rising or setting.
- *                  Use ``SunDirection.RISING`` or ``SunDirection.SETTING``. Default is rising.
- * @param tzinfo    Timezone to return times in. Default is UTC.
- * @returns         Date and time at which the sun is at the specified elevation.
+ * @param observer - Observer to calculate for
+ * @param elevation - Elevation of the sun in degrees above the horizon to calculate for.
+ * @param date - Date to calculate for. Default is today's date in the timezone `tzinfo`.
+ * @param direction - Determines whether the calculated time is for the sun rising or setting.
+ *                    Use `SunDirection.RISING` or `SunDirection.SETTING`. Default is rising.
+ * @param tzinfo - Timezone to return times in. Default is UTC.
+ * @returns Date and time at which the sun is at the specified elevation.
  */
 function timeAtElevation(
     observer: Observer,
     elevation: number,
     date?: DateTime,
     direction: SunDirection = SunDirection.RISING,
-    tzinfo: string = "utc"
+    tzinfo: string = 'utc'
 ): DateTime {
     if (elevation > 90.0) {
         elevation = 180.0 - elevation;
@@ -459,15 +441,15 @@ function timeAtElevation(
 
 /**
  * Calculate solar noon time when the sun is at its highest point.
- * @param observer An observer viewing the sun at a specific, latitude, longitude and elevation
- * @param date Date to calculate for. Default is today for the specified tzinfo.
- * @param tzinfo Timezone to return times in. Default is UTC.
+ * @param observer - An observer viewing the sun at a specific, latitude, longitude and elevation
+ * @param date - Date to calculate for. Default is today for the specified tzinfo.
+ * @param tzinfo - Timezone to return times in. Default is UTC.
  * @returns Date and time at which noon occurs.
  */
 function noon(
     observer: Observer,
     date: DateTime | null = null,
-    tzinfo: string = "utc"
+    tzinfo: string = 'utc'
 ): DateTime {
     if (!date) {
         date = today(tzinfo);
@@ -527,15 +509,15 @@ function noon(
  *    to 00:00:00 of the specified date i.e. it may return a time that is on
  *    the previous day.
  *
- * @param observer An observer viewing the sun at a specific, latitude, longitude and elevation
- * @param date Date to calculate for. Default is today for the specified tzinfo.
- * @param tzinfo Timezone to return times in. Default is UTC.
+ * @param observer - An observer viewing the sun at a specific, latitude, longitude and elevation
+ * @param date - Date to calculate for. Default is today for the specified tzinfo.
+ * @param tzinfo - Timezone to return times in. Default is UTC.
  * @returns Date and time at which midnight occurs.
  */
 function midnight(
     observer: Observer,
     date?: DateTime,
-    tzinfo: string = "utc"
+    tzinfo: string = 'utc'
 ): DateTime {
     if (!date) {
         date = today(tzinfo);
@@ -606,12 +588,12 @@ function zenithAndAzimuth(
     let longitude = observer.longitude;
 
     let utc_datetime, zone;
-    if (dateandtime.zoneName == "UTC") {
+    if (dateandtime.zoneName == 'UTC') {
         zone = 0.0;
         utc_datetime = dateandtime;
     } else {
         zone = -dateandtime.offset / 60.0; // type: ignore
-        utc_datetime = dateandtime.setZone("utc");
+        utc_datetime = dateandtime.setZone('utc');
     }
 
     let timenow =
@@ -702,15 +684,15 @@ function zenithAndAzimuth(
 /**
  * Calculate the azimuth angle of the sun.
  *
- * @param observer Observer to calculate the solar azimuth for
- * @param dateandtime The date and time for which to calculate the angle.
- *                    If `dateandtime` is not provided
- *                    then it is assumed to be right [[now]] in the UTC timezone.
+ * @param observer - Observer to calculate the solar azimuth for
+ * @param dateandtime - The date and time for which to calculate the angle.
+ *                      If `dateandtime` is not provided
+ *                      then it is assumed to be right [[now]] in the UTC timezone.
  * @returns The azimuth angle in degrees clockwise from North.
  */
 function azimuth(observer: Observer, dateandtime?: DateTime): number {
     if (!dateandtime) {
-        dateandtime = now("utc");
+        dateandtime = now('utc');
     }
 
     return zenithAndAzimuth(observer, dateandtime)[1];
@@ -719,11 +701,11 @@ function azimuth(observer: Observer, dateandtime?: DateTime): number {
 /**
  * Calculate the zenith angle of the sun.
  *
- * @param observer Observer to calculate the solar zenith for
- * @param dateandtime The date and time for which to calculate the angle.
- *                    If `dateandtime` is not provided
- *                    then it is assumed to be right [[now]] in the UTC timezone.
- * @param with_refraction If True adjust zenith to take refraction into account
+ * @param observer - Observer to calculate the solar zenith for
+ * @param dateandtime - The date and time for which to calculate the angle.
+ *                      If `dateandtime` is not provided
+ *                      then it is assumed to be right [[now]] in the UTC timezone.
+ * @param with_refraction - If true adjust zenith to take refraction into account
  * @returns The zenith angle in degrees.
  */
 function zenith(
@@ -732,7 +714,7 @@ function zenith(
     with_refraction: boolean = true
 ): number {
     if (!dateandtime) {
-        dateandtime = now("utc");
+        dateandtime = now('utc');
     }
 
     return zenithAndAzimuth(observer, dateandtime, with_refraction)[0];
@@ -741,11 +723,11 @@ function zenith(
 /**
  * Calculate the sun's angle of elevation.
  *
- * @param observer Observer to calculate the solar elevation for
- * @param dateandtime The date and time for which to calculate the angle.
- *                    If `dateandtime` is not provided then it is assumed to be right
- *                    [[now]] in the UTC timezone.
- * @param with_refraction If True adjust zenith to take refraction into account
+ * @param observer - Observer to calculate the solar elevation for
+ * @param dateandtime - The date and time for which to calculate the angle.
+ *                      If `dateandtime` is not provided then it is assumed to be right
+ *                      [[now]] in the UTC timezone.
+ * @param with_refraction - If true adjust zenith to take refraction into account
  * @returns The elevation angle in degrees.
  */
 function elevation(
@@ -754,7 +736,7 @@ function elevation(
     with_refraction: boolean = true
 ): number {
     if (!dateandtime) {
-        dateandtime = now("utc");
+        dateandtime = now('utc');
     }
 
     return 90.0 - zenith(observer, dateandtime, with_refraction);
@@ -763,11 +745,11 @@ function elevation(
 /**
  * Calculate dawn time.
  *
- * @param observer Observer to calculate dawn for
- * @param date Date to calculate for. Default is today's date in the timezone `tzinfo`.
- * @param depression Number of degrees below the horizon to use to calculate dawn.
- *                   Default is for Civil dawn i.e. 6.0
- * @param tzinfo Timezone to return times in. Default is UTC.
+ * @param observer - Observer to calculate dawn for
+ * @param date - Date to calculate for. Default is today's date in the timezone `tzinfo`.
+ * @param depression - Number of degrees below the horizon to use to calculate dawn.
+ *                     Default is for Civil dawn i.e. 6.0
+ * @param tzinfo - Timezone to return times in. Default is UTC.
  * @returns Date and time at which dawn occurs.
  * @throws [[ValueError]] if dawn does not occur on the specified date
  */
@@ -775,7 +757,7 @@ function dawn(
     observer: Observer,
     date?: DateTime,
     depression: number = Depression.CIVIL,
-    tzinfo: string = "utc"
+    tzinfo: string = 'utc'
 ): DateTime {
     if (!date) {
         date = today(tzinfo);
@@ -811,18 +793,18 @@ function dawn(
 /**
  * Calculate sunrise time.
  *
- * @param observer Observer to calculate sunrise for
- * @param date Date to calculate for. Default is today's date in the timezone `tzinfo`.
- * @param tzinfo Timezone to return times in. Default is UTC.
+ * @param observer - Observer to calculate sunrise for
+ * @param date - Date to calculate for. Default is today's date in the timezone `tzinfo`.
+ * @param tzinfo - Timezone to return times in. Default is UTC.
  * @returns Date and time at which sunrise occurs.
  * @throws [[ValueError]] if the sun does not reach the horizon
  */
 function sunrise(
     observer: Observer,
     date?: DateTime,
-    tzinfo: string = "utc"
+    tzinfo: string = 'utc'
 ): DateTime {
-    tzinfo = tzinfo || "utc";
+    tzinfo = tzinfo || 'utc';
     date = date || today(tzinfo);
 
     try {
@@ -838,10 +820,10 @@ function sunrise(
             let z = zenith(observer, noon(observer, date));
             if (z > 90.0) {
                 msg =
-                    "Sun is always below the horizon on this day, at this location.";
+                    'Sun is always below the horizon on this day, at this location.';
             } else {
                 msg =
-                    "Sun is always above the horizon on this day, at this location.";
+                    'Sun is always above the horizon on this day, at this location.';
             }
             throw new ValueError(msg);
         } else {
@@ -853,16 +835,16 @@ function sunrise(
 /**
  * Calculate sunset time.
  *
- * @param observer Observer to calculate sunset for
- * @param date Date to calculate for. Default is today's date in the timezone `tzinfo`.
- * @param tzinfo Timezone to return times in. Default is UTC.
+ * @param observer - Observer to calculate sunset for
+ * @param date - Date to calculate for. Default is today's date in the timezone `tzinfo`.
+ * @param tzinfo - Timezone to return times in. Default is UTC.
  * @returns Date and time at which sunset occurs.
  * @throws [[ValueError]] if the sun does not reach the horizon
  */
 function sunset(
     observer: Observer,
     date?: DateTime,
-    tzinfo: string = "utc"
+    tzinfo: string = 'utc'
 ): DateTime {
     if (!date) {
         date = today(tzinfo);
@@ -881,10 +863,10 @@ function sunset(
             let z = zenith(observer, noon(observer, date));
             if (z > 90.0) {
                 msg =
-                    "Sun is always below the horizon on this day, at this location.";
+                    'Sun is always below the horizon on this day, at this location.';
             } else {
                 msg =
-                    "Sun is always above the horizon on this day, at this location.";
+                    'Sun is always above the horizon on this day, at this location.';
             }
             throw new ValueError(msg);
         } else {
@@ -895,10 +877,10 @@ function sunset(
 
 /**
  * Calculate dusk time.
- * @param observer Observer to calculate dusk for
- * @param date Date to calculate for. Default is today's date in the timezone `tzinfo`.
- * @param depression Number of degrees below the horizon to use to calculate dusk. Default is for Civil dusk i.e. 6.0
- * @param tzinfo Timezone to return times in. Default is UTC.
+ * @param observer - Observer to calculate dusk for
+ * @param date - Date to calculate for. Default is today's date in the timezone `tzinfo`.
+ * @param depression - Number of degrees below the horizon to use to calculate dusk. Default is for Civil dusk i.e. 6.0
+ * @param tzinfo - Timezone to return times in. Default is UTC.
  * @returns Date and time at which dusk occurs.
  * @throws [[ValueError]] if dusk does not occur on the specified date
  */
@@ -906,7 +888,7 @@ function dusk(
     observer: Observer,
     date?: DateTime,
     depression: number = Depression.CIVIL,
-    tzinfo: string = "utc"
+    tzinfo: string = 'utc'
 ): DateTime {
     if (!date) {
         date = today(tzinfo);
@@ -940,15 +922,15 @@ function dusk(
 
 /**
  * Calculate daylight start and end times.
- * @param observer Observer to calculate daylight for
- * @param date Date to calculate for. Default is today's date in the timezone `tzinfo`.
- * @param tzinfo Timezone to return times in. Default is UTC.
+ * @param observer - Observer to calculate daylight for
+ * @param date - Date to calculate for. Default is today's date in the timezone `tzinfo`.
+ * @param tzinfo - Timezone to return times in. Default is UTC.
  * @returns A tuple of the date and time at which daylight starts and ends.
  * @throws [[ValueError]] if the sun does not rise or does not set
  */
 function daylight(
     observer: Observer,
-    { date, tzinfo = "utc" }: { date?: DateTime; tzinfo?: string } = {}
+    { date, tzinfo = 'utc' }: { date?: DateTime; tzinfo?: string } = {}
 ): [DateTime, DateTime] {
     if (!date) {
         date = today(tzinfo);
@@ -966,15 +948,15 @@ function daylight(
  * Night is calculated to be between astronomical dusk on the
  * date specified and astronomical dawn of the next day.
  *
- * @param observer Observer to calculate night for
- * @param date Date to calculate for. Default is today's date for the specified tzinfo.
- * @param tzinfo Timezone to return times in. Default is UTC.
+ * @param observer - Observer to calculate night for
+ * @param date - Date to calculate for. Default is today's date for the specified tzinfo.
+ * @param tzinfo - Timezone to return times in. Default is UTC.
  * @returns A tuple of the date and time at which night starts and ends.
  * @throws [[ValueError]] if dawn does not occur on the specified date or dusk on the following day
  */
 function night(
     observer: Observer,
-    { date, tzinfo = "utc" }: { date?: DateTime; tzinfo?: string } = {}
+    { date, tzinfo = 'utc' }: { date?: DateTime; tzinfo?: string } = {}
 ): [DateTime, DateTime] {
     if (!date) {
         date = today(tzinfo);
@@ -993,10 +975,10 @@ function night(
  * This method defines twilight as being between the time
  * when the sun is at -6 degrees and sunrise/sunset.
  *
- * @param observer Observer to calculate twilight for when the sun is traversing in the specified direction.
- * @param date Date for which to calculate the times. Default is today's date in the timezone `tzinfo`.
- * @param direction Determines whether the time is for the sun rising or setting. Use ``astral.SunDirection.RISING`` or ``astral.SunDirection.SETTING``.
- * @param tzinfo Timezone to return times in. Default is UTC.
+ * @param observer - Observer to calculate twilight for when the sun is traversing in the specified direction.
+ * @param date - Date for which to calculate the times. Default is today's date in the timezone `tzinfo`.
+ * @param direction - Determines whether the time is for the sun rising or setting. Use `SunDirection.RISING` or `SunDirection.SETTING`.
+ * @param tzinfo - Timezone to return times in. Default is UTC.
  * @returns A tuple of the date and time at which twilight starts and ends.
  * @throws [[ValueError]] if the sun does not rise or does not set
  */
@@ -1005,7 +987,7 @@ function twilight(
     {
         date,
         direction = SunDirection.RISING,
-        tzinfo = "utc"
+        tzinfo = 'utc'
     }: { date?: DateTime; direction?: SunDirection; tzinfo?: string } = {}
 ): [DateTime, DateTime] {
     if (!date) {
@@ -1038,10 +1020,10 @@ function twilight(
  * i.e. the golden hour is when the sun is between 4 degrees below the horizon
  * and 6 degrees above.
  *
- * @param observer Observer to calculate the golden hour for
- * @param date Date for which to calculate the times. Default is today's date in the timezone `tzinfo`.
- * @param direction Determines whether the time is for the sun rising or setting. Use ``SunDirection.RISING`` or ``SunDirection.SETTING``.
- * @param tzinfo Timezone to return times in. Default is UTC.
+ * @param observer - Observer to calculate the golden hour for
+ * @param date - Date for which to calculate the times. Default is today's date in the timezone `tzinfo`.
+ * @param direction - Determines whether the time is for the sun rising or setting. Use `SunDirection.RISING` or `SunDirection.SETTING`.
+ * @param tzinfo - Timezone to return times in. Default is UTC.
  * @returns A tuple of the date and time at which the Golden Hour starts and ends.
  * @throws [[ValueError]] if the sun does not transit the elevations -4 & +6 degrees
  */
@@ -1050,7 +1032,7 @@ function goldenHour(
     {
         date,
         direction = SunDirection.RISING,
-        tzinfo = "utc"
+        tzinfo = 'utc'
     }: { date?: DateTime; direction?: SunDirection; tzinfo?: string } = {}
 ): [DateTime, DateTime] {
     if (!date) {
@@ -1066,7 +1048,7 @@ function goldenHour(
     } catch (error) {
         if (error instanceof MathError) {
             throw new ValueError(
-                "Sun does not transit the elevations -4 & +6 degrees at this location"
+                'Sun does not transit the elevations -4 & +6 degrees at this location'
             );
         }
     }
@@ -1084,10 +1066,10 @@ function goldenHour(
  * This method uses the definition from PhotoPills i.e. the
  * blue hour is when the sun is between 6 and 4 degrees below the horizon.
 
- * @param observer Observer to calculate the blue hour for
- * @param date Date for which to calculate the times. Default is today's date in the timezone `tzinfo`.
- * @param direction Determines whether the time is for the sun rising or setting. Use ``SunDirection.RISING`` or ``SunDirection.SETTING``.
- * @param tzinfo Timezone to return times in. Default is UTC.
+ * @param observer - Observer to calculate the blue hour for
+ * @param date - Date for which to calculate the times. Default is today's date in the timezone `tzinfo`.
+ * @param direction - Determines whether the time is for the sun rising or setting. Use `SunDirection.RISING` or `SunDirection.SETTING`.
+ * @param tzinfo - Timezone to return times in. Default is UTC.
  * @returns A tuple of the date and time at which the Blue Hour starts and ends.
  * @throws [[ValueError]] if the sun does not transit the elevations -4 & -6 degrees
  */
@@ -1096,7 +1078,7 @@ function blueHour(
     {
         date,
         direction = SunDirection.RISING,
-        tzinfo = "utc"
+        tzinfo = 'utc'
     }: { date?: DateTime; direction?: SunDirection; tzinfo?: string } = {}
 ): [DateTime, DateTime] {
     if (!date) {
@@ -1112,7 +1094,7 @@ function blueHour(
     } catch (error) {
         if (error instanceof MathError) {
             throw new ValueError(
-                "Sun does not transit the elevations -4 & -6 degrees at this location"
+                'Sun does not transit the elevations -4 & -6 degrees at this location'
             );
         }
     }
@@ -1126,10 +1108,10 @@ function blueHour(
 
 /**
  * Calculate ruhakaalam times.
- * @param observer Observer to calculate rahukaalam for
- * @param date Date to calculate for. Default is today's date in the timezone `tzinfo`.
- * @param daytime If True calculate for the day time else calculate for the night time.
- * @param tzinfo Timezone to return times in. Default is UTC.
+ * @param observer - Observer to calculate rahukaalam for
+ * @param date - Date to calculate for. Default is today's date in the timezone `tzinfo`.
+ * @param daytime - If True calculate for the day time else calculate for the night time.
+ * @param tzinfo - Timezone to return times in. Default is UTC.
  * @returns Tuple containing the start and end times for Rahukaalam.
  * @throws [[ValueError]] if the sun does not rise or does not set
  */
@@ -1138,7 +1120,7 @@ function rahukaalam(
     {
         date,
         daytime = true,
-        tzinfo = "utc"
+        tzinfo = 'utc'
     }: { date?: DateTime; daytime?: boolean; tzinfo?: string } = {}
 ): [DateTime, DateTime] {
     if (!date) {
@@ -1171,11 +1153,11 @@ function rahukaalam(
 /**
  * Calculate dawn, sunrise, noon, sunset and dusk for the sun.
  *
- * @param observer Observer for which to calculate the times of the sun
- * @param date Date to calculate for. Default is today's date in the timezone `tzinfo`.
- * @param dawn_dusk_depression Depression to use to calculate dawn and dusk. Default is for Civil dusk i.e. 6.0
- * @param tzinfo Timezone to return times in. Default is UTC.
- * @returns Object with keys ``dawn``, ``sunrise``, ``noon``, ``sunset`` and ``dusk`` whose values are the results of the corresponding functions.
+ * @param observer - Observer for which to calculate the times of the sun
+ * @param date - Date to calculate for. Default is today's date in the timezone `tzinfo`.
+ * @param dawn_dusk_depression - Depression to use to calculate dawn and dusk. Default is for Civil dusk i.e. 6.0
+ * @param tzinfo - Timezone to return times in. Default is UTC.
+ * @returns Object with keys `dawn`, `sunrise`, `noon`, `sunset` and `dusk` whose values are the results of the corresponding functions.
  * @throws [[ValueError]] if thrown by any of the functions
  */
 function sun(
@@ -1183,7 +1165,7 @@ function sun(
     {
         date,
         dawn_dusk_depression = Depression.CIVIL,
-        tzinfo = "utc"
+        tzinfo = 'utc'
     }: { date?: DateTime; dawn_dusk_depression?: number; tzinfo?: string } = {}
 ): Object {
     if (!date) {

@@ -1,5 +1,5 @@
-import { LocationInfo } from "./index";
-import { KeyError } from "./error";
+import { LocationInfo } from './index';
+import { KeyError } from './error';
 
 // #region Locations
 const _LOCATION_INFO: string = `Abu Dhabi,UAE,Asia/Dubai,24°28'N,54°22'E
@@ -411,7 +411,7 @@ function database(): LocationDatabase {
 }
 
 function _sanitize_key(key: string): string {
-    return key.toLowerCase().replace(" ", "_");
+    return key.toLowerCase().replace(' ', '_');
 }
 
 function _array_to_locationinfo(array: Array<any>): LocationInfo {
@@ -438,11 +438,11 @@ function _add_locations_from_str(
     location_string: string,
     db: LocationDatabase
 ) {
-    let lines = location_string.split("\n");
+    let lines = location_string.split('\n');
     lines.forEach(function(line) {
         line = line.trim();
-        if (line.length != 0 && line[0] != "#") {
-            let info = line.split(",");
+        if (line.length != 0 && line[0] != '#') {
+            let info = line.split(',');
             let location = _array_to_locationinfo(info);
             _add_location_to_db(location, db);
         }
@@ -481,21 +481,21 @@ function _lookup_in_group(
     group: LocationGroup
 ): LocationInfo | null {
     let key = _sanitize_key(name);
-    let [lookup_name, lookup_region] = key.split(",");
-    lookup_region = lookup_region || "";
+    let [lookup_name, lookup_region] = key.split(',');
+    lookup_region = lookup_region || '';
 
-    lookup_name = lookup_name.replace(/^[\"\']|[\"\']$/gm, "");
-    lookup_region = lookup_region.replace(/^[\"\']|[\"\']$/gm, "");
+    lookup_name = lookup_name.replace(/^[\"\']|[\"\']$/gm, '');
+    lookup_region = lookup_region.replace(/^[\"\']|[\"\']$/gm, '');
 
     let location = null;
     for (let location_name in group) {
         if (location_name === lookup_name) {
             let location_list = group[location_name];
-            if (lookup_region === "") {
+            if (lookup_region === '') {
                 location = location_list[0];
             } else {
                 location_list.forEach(loc => {
-                    if (_sanitize_key(loc["region"]) == lookup_region) {
+                    if (_sanitize_key(loc['region']) == lookup_region) {
                         location = loc;
                     }
                 });
@@ -508,8 +508,8 @@ function _lookup_in_group(
 
 /**
  * Look up a location
- * @param name location to look up
- * @param db The database to look in
+ * @param name - location to look up
+ * @param db - The database to look in
  * @throws KeyError if the location is not in the database
  */
 function location(
@@ -530,8 +530,8 @@ function location(
 
 /**
  * Look up a timezone group
- * @param name group to look up
- * @param db The database to look in
+ * @param name - group to look up
+ * @param db - The database to look in
  * @throws KeyError if the location is not in the database
  */
 function group(name: string, db: LocationDatabase): LocationGroup | null {
@@ -547,7 +547,7 @@ function group(name: string, db: LocationDatabase): LocationGroup | null {
 /**
  * Returns a generator that returns all locations stored in a database
  *
- * @param The database to look in
+ * @param db - The database to look in
  */
 function* allLocations(db: LocationDatabase) {
     for (let group of Object.values(db)) {

@@ -1,4 +1,4 @@
-// Copyright 2009-2019, Simon Kennedy, sffjunkie+code@gmail.com
+// Copyright 2009-2020, Simon Kennedy, sffjunkie+code@gmail.com
 
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -12,21 +12,21 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-import { DateTime } from "luxon";
-import * as geocoder from "./geocoder";
-import * as sun from "./sun";
-import * as moon from "./moon";
-import { Location } from "./location";
+import { DateTime } from 'luxon';
+import * as geocoder from './geocoder';
+import * as sun from './sun';
+import * as moon from './moon';
+import { Location } from './location';
 
 type Elevation = number | [number, number];
 
 /**
  * Returns the current time in the specified time zone
- * @param timezone The timezone to use
+ * @param timezone - The timezone to use
  */
-function now(timezone: string = "utc"): DateTime {
+function now(timezone: string = 'utc'): DateTime {
     let time = DateTime.utc();
-    if (timezone !== "utc") {
+    if (timezone !== 'utc') {
         time = time.setZone(timezone);
     }
     return time;
@@ -34,9 +34,9 @@ function now(timezone: string = "utc"): DateTime {
 
 /**
  * Returns the current date in the specified time zone
- * @param timezone The timezone to use
+ * @param timezone - The timezone to use
  */
-function today(timezone: string = "utc"): DateTime {
+function today(timezone: string = 'utc'): DateTime {
     let dt = now(timezone);
     dt.set({ hour: 0, minute: 0, second: 0 });
     return dt;
@@ -48,12 +48,12 @@ function today(timezone: string = "utc"): DateTime {
  *   N and E return positive values
  *   S and W return negative values
  *
- * @param dms string to convert
- * @param limit Limit the value between ± `limit` (if provided)
+ * @param dms - string to convert
+ * @param limit - Limit the value between ± `limit` (if provided)
  */
 function dmsToNumber(dms: string | number, limit?: number): number {
     if (dms === undefined) {
-        console.log("2");
+        console.log('2');
     }
 
     let res: number;
@@ -61,21 +61,24 @@ function dmsToNumber(dms: string | number, limit?: number): number {
     if (isNaN(res)) {
         let re = /(?<deg>\d{1,3})[°]?((?<min>\d{1,2})[′'])?((?<sec>\d{1,2})[″\"])?(?<dir>[NSEW])?/i;
         let m = dms.toString().match(re);
-        if(m === null) {
-            throw {type: "ValueError", msg: `Unable to convert ${dms} to a float`};
+        if (m === null) {
+            throw {
+                type: 'ValueError',
+                msg: `Unable to convert ${dms} to a float`
+            };
         }
 
-        let deg = m.groups["deg"] || "0.0";
-        let min_ = m.groups["min"] || "0.0";
-        let sec = m.groups["sec"] || "0.0";
-        let dir_ = m.groups["dir"] || "E";
+        let deg = m.groups['deg'] || '0.0';
+        let min_ = m.groups['min'] || '0.0';
+        let sec = m.groups['sec'] || '0.0';
+        let dir_ = m.groups['dir'] || 'E';
 
         res = parseFloat(deg);
         if (min_) res += parseFloat(min_) / 60;
         if (sec) res += parseFloat(sec) / 3600;
 
         dir_ = dir_.toUpperCase();
-        if (dir_ === "S" || dir_ === "W") {
+        if (dir_ === 'S' || dir_ === 'W') {
             res = -res;
         }
     }
@@ -89,7 +92,6 @@ function dmsToNumber(dms: string | number, limit?: number): number {
 
 /**
  * The depression angle in degrees for the dawn/dusk calculations
- * @enum {number}
  */
 enum Depression {
     CIVIL = 6.0,
@@ -99,7 +101,6 @@ enum Depression {
 
 /**
  * Direction of the sun either RISING or SETTING
- * @enum {number}
  */
 enum SunDirection {
     RISING = 1,
@@ -131,10 +132,10 @@ class Observer {
     elevation: Elevation;
     /**
      * Constructor
-     * @param latitude Latitude - Northern latitudes should be positive
-     * @param longitude Longitude - Eastern longitudes should be positive
-     * @param elevation Elevation and/or distance to nearest obscuring feature
-                        in metres above/below the location.
+     * @param latitude - Latitude - Northern latitudes should be positive
+     * @param longitude - Longitude - Eastern longitudes should be positive
+     * @param elevation - Elevation and/or distance to nearest obscuring feature
+                          in metres above/below the location.
      */
     constructor(
         latitude?: number | string,
@@ -158,11 +159,12 @@ class Observer {
         }
     }
 
-    public static fromObject(obj:Object): Observer {
+    public static fromObject(obj: Object): Observer {
         let n = new Observer();
-        if ("latitude" in obj) n.latitude = dmsToNumber(obj["latitude"], 90.0);
-        if ("longitude" in obj) n.longitude = dmsToNumber(obj["longitude"], 90.0);
-        if ("elevation" in obj) n.elevation = obj["elevation"];
+        if ('latitude' in obj) n.latitude = dmsToNumber(obj['latitude'], 90.0);
+        if ('longitude' in obj)
+            n.longitude = dmsToNumber(obj['longitude'], 90.0);
+        if ('elevation' in obj) n.elevation = obj['elevation'];
         return n;
     }
 }
@@ -172,11 +174,11 @@ class LocationInfo {
     longitude: number;
     /**
      * Constructor
-     * @param name Location name (can be any string)
-     * @param region Region location is in (can be any string)
-     * @param timezone The location's time zone
-     * @param latitude Latitude - Northern latitudes should be positive
-     * @param longitude Longitude - Eastern longitudes should be positive
+     * @param name - Location name (can be any string)
+     * @param region - Region location is in (can be any string)
+     * @param timezone - The location's time zone
+     * @param latitude - Latitude - Northern latitudes should be positive
+     * @param longitude - Longitude - Eastern longitudes should be positive
      */
     constructor(
         public name?: string,
@@ -188,17 +190,17 @@ class LocationInfo {
         if (name) {
             this.name = name;
         } else {
-            this.name = "Greenwich";
+            this.name = 'Greenwich';
         }
         if (region) {
             this.region = region;
         } else {
-            this.region = "England";
+            this.region = 'England';
         }
         if (timezone) {
             this.timezone = timezone;
         } else {
-            this.timezone = "Europe/London";
+            this.timezone = 'Europe/London';
         }
         if (latitude) {
             this.latitude = dmsToNumber(latitude, 90.0);
@@ -212,13 +214,14 @@ class LocationInfo {
         }
     }
 
-    public static fromObject(obj:Object): LocationInfo {
+    public static fromObject(obj: Object): LocationInfo {
         let n = new LocationInfo();
-        if ("name" in obj) n.name = obj["name"];
-        if ("region" in obj) n.region = obj["region"];
-        if ("timezone" in obj) n.timezone = obj["timezone"];
-        if ("latitude" in obj) n.latitude = dmsToNumber(obj["latitude"], 90.0);
-        if ("longitude" in obj) n.longitude = dmsToNumber(obj["longitude"], 180.0);
+        if ('name' in obj) n.name = obj['name'];
+        if ('region' in obj) n.region = obj['region'];
+        if ('timezone' in obj) n.timezone = obj['timezone'];
+        if ('latitude' in obj) n.latitude = dmsToNumber(obj['latitude'], 90.0);
+        if ('longitude' in obj)
+            n.longitude = dmsToNumber(obj['longitude'], 180.0);
         return n;
     }
 
@@ -229,7 +232,7 @@ class LocationInfo {
 
     /** Get the timezone group for this location */
     get timezone_group(): string {
-        return this.timezone.split("/")[0];
+        return this.timezone.split('/')[0];
     }
 }
 
