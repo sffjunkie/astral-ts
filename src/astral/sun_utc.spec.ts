@@ -11,11 +11,6 @@ const london = new Observer(
     -0.12574
 );
 
-const new_delhi = new Observer(
-    28.61,
-    77.22
-);
-
 describe("Sun UTC functions", function() {
     describe("sun", function() {
         var tests = [
