@@ -17,6 +17,7 @@ import * as geocoder from './geocoder';
 import * as sun from './sun';
 import * as moon from './moon';
 import { Location } from './location';
+import { ValueError } from "./error";
 
 type Elevation = number | [number, number];
 
@@ -50,6 +51,7 @@ function today(timezone: string = 'utc'): DateTime {
  *
  * @param dms - string to convert
  * @param limit - Limit the value between ± `limit` (if provided)
+ * @throws ValueError if `dms` is a string that can not be converted.
  */
 function dmsToNumber(dms: string | number, limit?: number): number {
     if (dms === undefined) {
@@ -62,10 +64,7 @@ function dmsToNumber(dms: string | number, limit?: number): number {
         let re = /(?<deg>\d{1,3})[°]?((?<min>\d{1,2})[′'])?((?<sec>\d{1,2})[″\"])?(?<dir>[NSEW])?/i;
         let m = dms.toString().match(re);
         if (m === null) {
-            throw {
-                type: 'ValueError',
-                msg: `Unable to convert ${dms} to a float`
-            };
+            throw new ValueError(`Unable to convert ${dms} to a float`)
         }
 
         let deg = m.groups['deg'] || '0.0';
