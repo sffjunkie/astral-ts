@@ -3,7 +3,9 @@
     "version": "2.1.0",
     "description": "calculations for the position of the sun and the moon",
     "main": "dist/index.js",
-    "files": ["dist/*.js"],
+    "files": [
+        "dist/*.js"
+    ],
     "scripts": {
         "clean": "rimraf dist",
         "build": "rimraf dist && tsc",
@@ -26,8 +28,8 @@
     "author": "Simon Kennedy <sffjunkie+code@gmail.com>",
     "license": "Apache-2.0",
     "repository": {
-      "type": "git",
-      "url": "https://github.com/sffjunkie/astral-ts.git"
+        "type": "git",
+        "url": "https://github.com/sffjunkie/astral-ts.git"
     },
     "dependencies": {
         "luxon": "^1.22.0"
@@ -43,7 +45,6 @@
         "chai": "^4.2.0",
         "chai-datetime": "^1.5.0",
         "eslint": "^6.8.0",
-        "eslint-config-google": "^0.14.0",
         "eslint-plugin-tsdoc": "^0.2.3",
         "mocha": "^7.1.0",
         "mocha-typescript": "^1.1.17",
