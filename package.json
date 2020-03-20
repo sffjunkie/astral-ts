@@ -47,13 +47,13 @@
         "eslint-plugin-tsdoc": "^0.2.3",
         "mocha": "^7.1.0",
         "mocha-typescript": "^1.1.17",
+        "npm-pack": "^1.0.0",
         "nyc": "^15.0.0",
         "rewire": "^4.0.1",
         "rimraf": "^3.0.2",
         "ts-node": "^8.6.2",
         "typedoc": "^0.16.10",
-        "typescript": "^3.8.2",
-        "npm-pack": "^1.0.0"
+        "typescript": "^3.8.2"
     },
     "mocha": {
         "no-opts": true,
