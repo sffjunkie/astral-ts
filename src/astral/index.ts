@@ -51,7 +51,7 @@ function today(timezone: string = 'utc'): DateTime {
  *
  * @param dms - string to convert
  * @param limit - Limit the value between ± `limit` (if provided)
- * @throws ValueError if `dms` is a string that can not be converted.
+ * @throws [[ValueError]] if `dms` is a string that can not be converted.
  */
 function dmsToNumber(dms: string | number, limit?: number): number {
     if (dms === undefined) {
