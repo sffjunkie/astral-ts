@@ -9,12 +9,8 @@
         "build": "rimraf dist && tsc",
         "test": "mocha --require ts-node/register ./src/**/*.spec.ts",
         "test-watch": "mocha --require ts-node/register --watch --watch-files ./src/**/*.spec.ts",
-<<<<<<< HEAD
-        "build-docs": "rimraf docs && typedoc --exclude ./src/**/*.spec.ts --media ./src/doc/media --out docs ./src/astral/"
-=======
         "build-docs": "rimraf docs && typedoc --exclude ./src/**/*.spec.ts --media ./src/doc/media --out docs ./src/astral/",
         "publish-docs": "git subtree push --prefix docs origin gh-pages"
->>>>>>> master
     },
     "keywords": [
         "sun",
