@@ -8,10 +8,10 @@
     ],
     "scripts": {
         "clean": "rimraf dist docs",
-        "build": "rimraf dist && tsc",
         "lint": "eslint src/**/*.ts",
         "test": "mocha --require ts-node/register ./src/**/*.spec.ts",
         "test-watch": "mocha --require ts-node/register --watch --watch-files ./src/**/*.spec.ts",
+        "build": "rimraf dist && tsc",
         "build-docs": "rimraf docs && typedoc --exclude ./src/**/*.spec.ts --media ./src/doc/media --out docs ./src/astral/",
         "publish-docs": "git subtree push --prefix docs origin gh-pages"
     },
