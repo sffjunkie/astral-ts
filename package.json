@@ -7,7 +7,7 @@
         "dist/*.js"
     ],
     "scripts": {
-        "clean": "rimraf dist",
+        "clean": "rimraf dist docs",
         "build": "rimraf dist && tsc",
         "lint": "eslint src/**/*.ts",
         "test": "mocha --require ts-node/register ./src/**/*.spec.ts",
