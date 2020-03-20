@@ -515,7 +515,7 @@ function _lookup_in_group(
 function location(
     name: string,
     db: LocationDatabase
-): LocationInfo | LocationGroup | null {
+): LocationInfo | null {
     let key = _sanitize_key(name);
     for (let group_name in db) {
         var group = db[group_name];
