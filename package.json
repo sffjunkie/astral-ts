@@ -1,5 +1,5 @@
 {
-    "name": "astral",
+    "name": "@sffjunkie/astral",
     "version": "2.1.0",
     "description": "calculations for the position of the sun and the moon",
     "main": "dist/index.js",

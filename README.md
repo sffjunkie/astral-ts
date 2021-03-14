@@ -305,7 +305,7 @@ Astral has one required external dependency on
 To install Astral you should use the `npm` tool:
 
 ```
-npm install astral
+npm install @sffjunkie/astral
 ```
 
 ## Cities
@@ -381,7 +381,7 @@ Wichita, Wilmington
 
 ## Thanks
 
-The sun calculations in this module were adapted, for Python, from the
+The sun calculations in this package were adapted from the
 spreadsheets on the following page.
 
 https://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html
